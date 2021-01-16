@@ -1,0 +1,398 @@
+{
+    "pages": {
+        "inputs": {
+            "table": {
+                "moreInfo": [
+                    {
+                        "field": "name",
+                        "label": "Name"
+                    },
+                    {
+                        "field": "interval",
+                        "label": "Interval"
+                    },
+                    {
+                        "field": "index",
+                        "label": "Index"
+                    },
+                    {
+                        "field": "disabled",
+                        "label": "Status"
+                    },
+                    {
+                        "field": "tesla_email",
+                        "label": "Tesla Email/Username"
+                    },
+                    {
+                        "field": "tesla_password",
+                        "label": "Tesla Password"
+                    },
+                    {
+                        "field": "data_collector",
+                        "label": "Data Collector"
+                    },
+                    {
+                        "field": "vehicle_id",
+                        "label": "Vehicle ID"
+                    }
+                ],
+                "header": [
+                    {
+                        "field": "name",
+                        "label": "Name"
+                    },
+                    {
+                        "field": "interval",
+                        "label": "Interval"
+                    },
+                    {
+                        "field": "index",
+                        "label": "Index"
+                    },
+                    {
+                        "field": "disabled",
+                        "label": "Status"
+                    }
+                ],
+                "actions": [
+                    "edit",
+                    "enable",
+                    "delete",
+                    "clone"
+                ]
+            },
+            "description": "Manage your data inputs",
+            "title": "Inputs",
+            "services": [
+                {
+                    "entity": [
+                        {
+                            "required": true,
+                            "help": "Enter a unique name for the data input",
+                            "field": "name",
+                            "validators": [
+                                {
+                                    "pattern": "^[a-zA-Z]\\w*$",
+                                    "errorMsg": "Input Name must start with a letter and followed by alphabetic letters, digits or underscores.",
+                                    "type": "regex"
+                                },
+                                {
+                                    "maxLength": 100,
+                                    "minLength": 1,
+                                    "errorMsg": "Length of input name should be between 1 and 100",
+                                    "type": "string"
+                                }
+                            ],
+                            "label": "Name",
+                            "type": "text"
+                        },
+                        {
+                            "required": true,
+                            "help": "Time interval of input in seconds.",
+                            "field": "interval",
+                            "validators": [
+                                {
+                                    "pattern": "^\\-[1-9]\\d*$|^\\d*$",
+                                    "errorMsg": "Interval must be an integer.",
+                                    "type": "regex"
+                                }
+                            ],
+                            "label": "Interval",
+                            "type": "text"
+                        },
+                        {
+                            "required": true,
+                            "defaultValue": "default",
+                            "field": "index",
+                            "options": {
+                                "createSearchChoice": true,
+                                "blackList": "^_.*$",
+                                "endpointUrl": "data/indexes"
+                            },
+                            "validators": [
+                                {
+                                    "maxLength": 80,
+                                    "minLength": 1,
+                                    "errorMsg": "Length of index name should be between 1 and 80.",
+                                    "type": "string"
+                                }
+                            ],
+                            "label": "Index",
+                            "type": "singleSelect"
+                        },
+                        {
+                            "required": true,
+                            "options": {
+                                "placeholder": "your@email.com"
+                            },
+                            "help": "This is the email used to login to your Tesla app",
+                            "field": "tesla_email",
+                            "validators": [
+                                {
+                                    "maxLength": 8192,
+                                    "minLength": 0,
+                                    "errorMsg": "Max length of text input is 8192",
+                                    "type": "string"
+                                }
+                            ],
+                            "label": "Tesla Email/Username",
+                            "type": "text"
+                        },
+                        {
+                            "required": true,
+                            "encrypted": true,
+                            "help": "This is the password used to login to your Tesla app",
+                            "field": "tesla_password",
+                            "validators": [
+                                {
+                                    "maxLength": 8192,
+                                    "minLength": 0,
+                                    "errorMsg": "Max length of password is 8192",
+                                    "type": "string"
+                                }
+                            ],
+                            "label": "Tesla Password",
+                            "type": "text"
+                        },
+                        {
+                            "required": true,
+                            "defaultValue": "vehicle_data",
+                            "help": "Select the type of data to collect",
+                            "field": "data_collector",
+                            "options": {
+                                "autoCompleteFields": [
+                                    {
+                                        "label": "Specific Vehicle Data",
+                                        "value": "vehicle_data"
+                                    },
+                                    {
+                                        "label": "Specific Vehicle Supercharger details",
+                                        "value": "supercharger"
+                                    },
+                                    {
+                                        "label": "Vehicle List",
+                                        "value": "vehicle_list"
+                                    }
+                                ],
+                                "disableSearch": true
+                            },
+                            "label": "Data Collector",
+                            "type": "singleSelect"
+                        },
+                        {
+                            "required": false,
+                            "defaultValue": "01234567890",
+                            "help": "Required for Specific Vehicle collectors - If you dont know your vehicle ID, first use the vehicle list collector and then check the collected response.",
+                            "field": "vehicle_id",
+                            "validators": [
+                                {
+                                    "maxLength": 8192,
+                                    "minLength": 0,
+                                    "errorMsg": "Max length of text input is 8192",
+                                    "type": "string"
+                                }
+                            ],
+                            "label": "Vehicle ID",
+                            "type": "text"
+                        }
+                    ],
+                    "title": "Tesla Car Api",
+                    "name": "tesla_car_api"
+                }
+            ]
+        },
+        "configuration": {
+            "description": "Set up your add-on",
+            "title": "Configuration",
+            "tabs": [
+                {
+                    "entity": [
+                        {
+                            "field": "proxy_enabled",
+                            "label": "Enable",
+                            "type": "checkbox"
+                        },
+                        {
+                            "field": "proxy_type",
+                            "options": {
+                                "autoCompleteFields": [
+                                    {
+                                        "label": "http",
+                                        "value": "http"
+                                    },
+                                    {
+                                        "label": "socks4",
+                                        "value": "socks4"
+                                    },
+                                    {
+                                        "label": "socks5",
+                                        "value": "socks5"
+                                    }
+                                ],
+                                "disableSearch": true
+                            },
+                            "defaultValue": "http",
+                            "label": "Proxy Type",
+                            "type": "singleSelect"
+                        },
+                        {
+                            "field": "proxy_url",
+                            "validators": [
+                                {
+                                    "maxLength": 4096,
+                                    "minLength": 0,
+                                    "errorMsg": "Max host length is 4096",
+                                    "type": "string"
+                                }
+                            ],
+                            "label": "Host",
+                            "type": "text"
+                        },
+                        {
+                            "field": "proxy_port",
+                            "validators": [
+                                {
+                                    "range": [
+                                        1,
+                                        65535
+                                    ],
+                                    "type": "number"
+                                }
+                            ],
+                            "label": "Port",
+                            "type": "text"
+                        },
+                        {
+                            "field": "proxy_username",
+                            "validators": [
+                                {
+                                    "maxLength": 50,
+                                    "minLength": 0,
+                                    "errorMsg": "Max length of username is 50",
+                                    "type": "string"
+                                }
+                            ],
+                            "label": "Username",
+                            "type": "text"
+                        },
+                        {
+                            "field": "proxy_password",
+                            "encrypted": true,
+                            "validators": [
+                                {
+                                    "maxLength": 8192,
+                                    "minLength": 0,
+                                    "errorMsg": "Max length of password is 8192",
+                                    "type": "string"
+                                }
+                            ],
+                            "label": "Password",
+                            "type": "text"
+                        },
+                        {
+                            "field": "proxy_rdns",
+                            "label": "Remote DNS resolution",
+                            "type": "checkbox"
+                        }
+                    ],
+                    "options": {
+                        "saveValidator": "function(formData) { if(!formData.proxy_enabled || formData.proxy_enabled === '0') {return true; } if(!formData.proxy_url) { return 'Proxy Host can not be empty'; } if(!formData.proxy_port) { return 'Proxy Port can not be empty'; } return true; }"
+                    },
+                    "title": "Proxy",
+                    "name": "proxy"
+                },
+                {
+                    "entity": [
+                        {
+                            "field": "loglevel",
+                            "options": {
+                                "autoCompleteFields": [
+                                    {
+                                        "label": "DEBUG",
+                                        "value": "DEBUG"
+                                    },
+                                    {
+                                        "label": "INFO",
+                                        "value": "INFO"
+                                    },
+                                    {
+                                        "label": "WARNING",
+                                        "value": "WARNING"
+                                    },
+                                    {
+                                        "label": "ERROR",
+                                        "value": "ERROR"
+                                    },
+                                    {
+                                        "label": "CRITICAL",
+                                        "value": "CRITICAL"
+                                    }
+                                ],
+                                "disableSearch": true
+                            },
+                            "defaultValue": "INFO",
+                            "label": "Log level",
+                            "type": "singleSelect"
+                        }
+                    ],
+                    "title": "Logging",
+                    "name": "logging"
+                },
+                {
+                    "entity": [
+                        {
+                            "required": true,
+                            "defaultValue": "",
+                            "help": "Found at https://akrion.docs.apiary.io",
+                            "field": "api_clientid",
+                            "validators": [
+                                {
+                                    "maxLength": 8192,
+                                    "minLength": 0,
+                                    "errorMsg": "Max length of text input is 8192",
+                                    "type": "string"
+                                }
+                            ],
+                            "label": "API ClientID",
+                            "type": "text"
+                        },
+                        {
+                            "required": true,
+                            "defaultValue": "",
+                            "encrypted": true,
+                            "help": "Found at https://akrion.docs.apiary.io",
+                            "field": "api_client_secret",
+                            "validators": [
+                                {
+                                    "maxLength": 8192,
+                                    "minLength": 0,
+                                    "errorMsg": "Max length of password is 8192",
+                                    "type": "string"
+                                }
+                            ],
+                            "label": "API Client Secret",
+                            "type": "text"
+                        },
+                        {
+                            "required": false,
+                            "defaultValue": true,
+                            "help": "Enforce trusted SSL certificate verification",
+                            "field": "verify_ssl",
+                            "label": "Verify SSL",
+                            "type": "checkbox"
+                        }
+                    ],
+                    "title": "Add-on Settings",
+                    "name": "additional_parameters"
+                }
+            ]
+        }
+    },
+    "meta": {
+        "displayName": "Tesla data",
+        "version": "1.0.0",
+        "restRoot": "TA_tesla_data",
+        "name": "TA-tesla-data",
+        "apiVersion": "3.0.0"
+    }
+}

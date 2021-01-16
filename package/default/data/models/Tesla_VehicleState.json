@@ -1,0 +1,26 @@
+{
+    "modelName": "Tesla_VehicleState",
+    "displayName": "Tesla VehicleState",
+    "description": "",
+    "objectSummary": {
+        "Event-Based": 0,
+        "Transaction-Based": 0,
+        "Search-Based": 1
+    },
+    "objects": [
+        {
+            "objectName": "RootObject",
+            "displayName": "Tesla_VehicleState",
+            "parentName": "BaseSearch",
+            "comment": "",
+            "fields": [],
+            "calculations": [],
+            "constraints": [],
+            "lineage": "RootObject",
+            "baseSearch": "((index=\"tesla\") (sourcetype=\"vehicle_data\")) | fields \"_time\", \"in_service\", \"vehicle_id\", \"vehicle_state.car_version\", \"vehicle_state.is_user_present\", \"vehicle_state.locked\", \"vehicle_state.odometer\", \"vehicle_state.sentry_mode\", \"vehicle_state.software_update.status\", \"vehicle_state.vehicle_name\" | rename \"vehicle_state.car_version\" AS \"car_version\" | rename \"car_version\" AS \"software_version\" | rename \"vehicle_state.is_user_present\" AS \"is_user_present\" | rename \"vehicle_state.locked\" AS \"locked\" | rename \"vehicle_state.odometer\" AS \"odometer\" | rename \"vehicle_state.sentry_mode\" AS \"sentry_mode\" | rename \"vehicle_state.software_update.status\" AS \"software_update.status\" | rename \"vehicle_state.vehicle_name\" AS \"vehicle_name\" | rename \"software_update.status\" AS \"software_update.status\" | rename \"software_update.status\" AS \"software_update_status\" | replace \"false\" with \"User Not Present\" in \"is_user_present\" | replace \"\" with \"Software Update: Not Available\", \"available\" with \"Sofrware Update: Available\", \"installing\" with \"Software Update: Installing\" in \"software_update_status\" | eval \"software_version\"=\"Software Version: \"+'software_version' | replace \"true\" with \"Vehicle is Locked\", \"false\" with \"Vehicle is Unlocked\" in \"locked\" | replace \"false\" with \"Vehicle is not in service\", \"true\" with \"Vehicle is in service\" in \"in_service\" | replace \"false\" with \"Sentry mode: In-active\", \"true\" with \"Sentry mode: Active\" in \"sentry_mode\""
+        }
+    ],
+    "objectNameList": [
+        "RootObject"
+    ]
+}

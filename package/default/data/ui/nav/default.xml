@@ -1,0 +1,6 @@
+<nav search_view="search" color="#E82127">
+  <view name="tesla_fast" default="true" />
+<view name="inputs" />
+<view name="configuration"/>
+<view name="search" label="Search"/>
+</nav>

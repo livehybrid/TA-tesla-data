@@ -1,0 +1,26 @@
+{
+    "modelName": "Tesla_SuperChargers_new",
+    "displayName": "Tesla SuperChargers_new",
+    "description": "",
+    "objectSummary": {
+        "Event-Based": 0,
+        "Transaction-Based": 0,
+        "Search-Based": 1
+    },
+    "objects": [
+        {
+            "objectName": "RootObject",
+            "displayName": "Tesla_SuperChargers_new",
+            "parentName": "BaseSearch",
+            "comment": "",
+            "fields": [],
+            "calculations": [],
+            "constraints": [],
+            "lineage": "RootObject",
+            "baseSearch": "index=tesla sourcetype=supercharger | fields \"_time\", \"available_stalls\", \"name\", \"total_stalls\", \"_raw\" | eval \"availability\"='available_stalls' / 'total_stalls' * 100"
+        }
+    ],
+    "objectNameList": [
+        "RootObject"
+    ]
+}

@@ -1,0 +1,343 @@
+<dashboard theme="light">
+  <label>Tesla</label>
+  <row>
+    <panel>
+      <html>
+        <img src="https://www.tesla.com/configurator/compositor/?model=m3&amp;view=STUD_3QTR&amp;size=1900&amp;file_type=jpg&amp;options=PPSB,W39B"/>
+        <img src="https://www.tesla.com/configurator/compositor/?model=m3&amp;view=STUD_SEAT&amp;size=1900&amp;file_type=jpg&amp;options=PPSB" width="90%" style="display:none;"/>
+      </html>
+      <table>
+        <search>
+          <query>| pivot Tesla_VehicleState RootObject latest(software_update_status) AS "Latest Value of software_update_status" latest(software_version) AS "Latest Value of software_version" latest(sentry_mode) AS "Latest Value of sentry_mode" latest(locked) AS "Latest Value of locked" ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1| untable _time sentry Info
+| head 4
+| table Info</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Vehicle Details</title>
+      <single>
+        <search>
+          <query>| pivot Tesla_VehicleState RootObject max(odometer) AS "Max of odometer" SPLITROW _time AS _time PERIOD hour SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1</query>
+          <earliest>-7d@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="rangeValues">[0,30,70,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-24h</option>
+        <option name="underLabel">Odometer</option>
+        <option name="unit">Miles</option>
+        <option name="unitPosition">after</option>
+        <option name="useColors">0</option>
+        <option name="useThousandSeparators">1</option>
+      </single>
+           <single>
+        <search>
+          <query>| pivot Tesla_ChargeState RootObject avg(battery_perc) AS "Average of battery_perc" SPLITROW _time AS _time PERIOD auto SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1</query>
+          <earliest>-24h@h</earliest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0xdc4e41","0xf1813f","0xf8be34","0x53a051","0xdc4e41"]</option>
+        <option name="rangeValues">[10,20,30,100]</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-1h</option>
+        <option name="unitPosition">after</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+      </single>
+      <html>
+        <br/>
+      </html>
+      <single>
+        <search>
+          <query>| pivot Tesla_ChargeState RootObject avg(battery_range_rated) AS "Advertised Range (Mi)", avg(battery_range_est) AS "Estimated Range (Mi)", SPLITROW _time AS _time PERIOD hour SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="height">223</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="rangeValues">[0,30,70,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">1</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">large</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="unit">Miles</option>
+        <option name="unitPosition">after</option>
+        <option name="useColors">0</option>
+        <option name="useThousandSeparators">1</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Current Location</title>
+      <viz type="leaflet_maps_app.maps-plus">
+        <search>
+          <query>index=tesla sourcetype=vehicle_data
+| eval latitude = 'drive_state.latitude'
+| eval longitude = 'drive_state.longitude'
+| head 1
+| table _time longitude latitude</query>
+          <earliest>-15m</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="leaflet_maps_app.maps-plus.allPopups">0</option>
+        <option name="leaflet_maps_app.maps-plus.animate">1</option>
+        <option name="leaflet_maps_app.maps-plus.autoFitAndZoom">1</option>
+        <option name="leaflet_maps_app.maps-plus.autoFitAndZoomDelay">500</option>
+        <option name="leaflet_maps_app.maps-plus.bingMaps">0</option>
+        <option name="leaflet_maps_app.maps-plus.bingMapsLabelLanguage">en-US</option>
+        <option name="leaflet_maps_app.maps-plus.bingMapsTileLayer">CanvasLight</option>
+        <option name="leaflet_maps_app.maps-plus.cluster">1</option>
+        <option name="leaflet_maps_app.maps-plus.contextMenu">1</option>
+        <option name="leaflet_maps_app.maps-plus.criticalThreshold">80</option>
+        <option name="leaflet_maps_app.maps-plus.defaultHeight">600</option>
+        <option name="leaflet_maps_app.maps-plus.disableClusteringAtZoom">0</option>
+        <option name="leaflet_maps_app.maps-plus.drilldown">0</option>
+        <option name="leaflet_maps_app.maps-plus.drilldownAction">dblclick</option>
+        <option name="leaflet_maps_app.maps-plus.fullScreen">0</option>
+        <option name="leaflet_maps_app.maps-plus.googlePlacesPosition">topleft</option>
+        <option name="leaflet_maps_app.maps-plus.googlePlacesSearch">0</option>
+        <option name="leaflet_maps_app.maps-plus.googlePlacesZoomLevel">12</option>
+        <option name="leaflet_maps_app.maps-plus.heatmapBlur">15</option>
+        <option name="leaflet_maps_app.maps-plus.heatmapColorGradient">{"0.4":"blue","0.6":"cyan","0.7":"lime","0.8":"yellow","1":"red"}</option>
+        <option name="leaflet_maps_app.maps-plus.heatmapEnable">0</option>
+        <option name="leaflet_maps_app.maps-plus.heatmapMinOpacity">1.0</option>
+        <option name="leaflet_maps_app.maps-plus.heatmapOnly">0</option>
+        <option name="leaflet_maps_app.maps-plus.heatmapRadius">25</option>
+        <option name="leaflet_maps_app.maps-plus.i18nLanguage">en</option>
+        <option name="leaflet_maps_app.maps-plus.layerControl">1</option>
+        <option name="leaflet_maps_app.maps-plus.layerControlCollapsed">1</option>
+        <option name="leaflet_maps_app.maps-plus.mapCenterLat">39.50</option>
+        <option name="leaflet_maps_app.maps-plus.mapCenterLon">-98.35</option>
+        <option name="leaflet_maps_app.maps-plus.mapCenterZoom">6</option>
+        <option name="leaflet_maps_app.maps-plus.mapTile">http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png</option>
+        <option name="leaflet_maps_app.maps-plus.maxClusterRadius">80</option>
+        <option name="leaflet_maps_app.maps-plus.maxSpiderfySize">100</option>
+        <option name="leaflet_maps_app.maps-plus.maxZoom">19</option>
+        <option name="leaflet_maps_app.maps-plus.measureActiveColor">#00ff00</option>
+        <option name="leaflet_maps_app.maps-plus.measureCompletedColor">#0066ff</option>
+        <option name="leaflet_maps_app.maps-plus.measureIconPosition">topright</option>
+        <option name="leaflet_maps_app.maps-plus.measureLocalization">en</option>
+        <option name="leaflet_maps_app.maps-plus.measurePrimaryAreaUnit">acres</option>
+        <option name="leaflet_maps_app.maps-plus.measurePrimaryLengthUnit">feet</option>
+        <option name="leaflet_maps_app.maps-plus.measureSecondaryAreaUnit">sqmiles</option>
+        <option name="leaflet_maps_app.maps-plus.measureSecondaryLengthUnit">miles</option>
+        <option name="leaflet_maps_app.maps-plus.measureTool">1</option>
+        <option name="leaflet_maps_app.maps-plus.minZoom">1</option>
+        <option name="leaflet_maps_app.maps-plus.multiplePopups">0</option>
+        <option name="leaflet_maps_app.maps-plus.pathColorList">#0003F0,#D43C29,darkgreen,0xe2d400,darkred,#23A378</option>
+        <option name="leaflet_maps_app.maps-plus.pathSplitInterval">60</option>
+        <option name="leaflet_maps_app.maps-plus.pathSplits">0</option>
+        <option name="leaflet_maps_app.maps-plus.permanentTooltip">0</option>
+        <option name="leaflet_maps_app.maps-plus.playbackSpeed">100</option>
+        <option name="leaflet_maps_app.maps-plus.playbackTickLength">50</option>
+        <option name="leaflet_maps_app.maps-plus.rangeOneBgColor">#B5E28C</option>
+        <option name="leaflet_maps_app.maps-plus.rangeOneFgColor">#6ECC39</option>
+        <option name="leaflet_maps_app.maps-plus.rangeThreeBgColor">#FD9C73</option>
+        <option name="leaflet_maps_app.maps-plus.rangeThreeFgColor">#F18017</option>
+        <option name="leaflet_maps_app.maps-plus.rangeTwoBgColor">#F1D357</option>
+        <option name="leaflet_maps_app.maps-plus.rangeTwoFgColor">#F0C20C</option>
+        <option name="leaflet_maps_app.maps-plus.refreshInterval">0</option>
+        <option name="leaflet_maps_app.maps-plus.renderer">svg</option>
+        <option name="leaflet_maps_app.maps-plus.scrollWheelZoom">1</option>
+        <option name="leaflet_maps_app.maps-plus.showPathLines">0</option>
+        <option name="leaflet_maps_app.maps-plus.showPlayback">0</option>
+        <option name="leaflet_maps_app.maps-plus.showPlaybackDateControl">1</option>
+        <option name="leaflet_maps_app.maps-plus.showPlaybackPlayControl">1</option>
+        <option name="leaflet_maps_app.maps-plus.showPlaybackSliderControl">1</option>
+        <option name="leaflet_maps_app.maps-plus.showProgress">1</option>
+        <option name="leaflet_maps_app.maps-plus.singleMarkerMode">0</option>
+        <option name="leaflet_maps_app.maps-plus.spiderfyDistanceMultiplier">1</option>
+        <option name="leaflet_maps_app.maps-plus.stickyTooltip">1</option>
+        <option name="leaflet_maps_app.maps-plus.warningThreshold">55</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </viz>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Battery Status over time</title>
+      <chart>
+        <search>
+          <query>| pivot Tesla_ChargeState RootObject avg(battery_range_rated) AS "Advertised Range (Mi)", avg(battery_range_est) AS "Estimated Range (Mi)", SPLITROW _time AS _time PERIOD minute SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.minimumNumber">0</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">1</option>
+        <option name="charting.axisY2.minimumNumber">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">connect</option>
+        <option name="charting.chart.overlayFields">"Current Battery Level (%)"</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Driving Efficiency</title>
+      <chart>
+        <search>
+          <query>| pivot Tesla_ChargeState RootObject avg(battery_range_rated) AS "Advertised Range (Mi)", avg(battery_range_est) AS "Estimated Range (Mi)", SPLITROW _time AS _time PERIOD minute SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1| eval efficiency=('Estimated Range (Mi)'/'Advertised Range (Mi)')*100
+| table _time efficiency</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisLabelsY.majorUnit">15</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.minimumNumber">0</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">1</option>
+        <option name="charting.axisY2.minimumNumber">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">connect</option>
+        <option name="charting.chart.overlayFields">"Current Battery Level (%)"</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Supercharger Availability by site</title>
+      <chart>
+        <title>The % of available Superchargers</title>
+        <search>
+          <query>| pivot Tesla_SuperChargers_new RootObject avg(availability) AS "Average of availability" SPLITROW _time AS _time PERIOD minute SPLITCOL name SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 NUMCOLS 100 SHOWOTHER 1</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.text">Average of availability</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisTitleY2.visibility">collapsed</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.minimumNumber">0</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">none</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">1</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+  </row>
+</dashboard>

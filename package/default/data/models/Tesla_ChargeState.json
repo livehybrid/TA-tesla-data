@@ -1,0 +1,26 @@
+{
+    "modelName": "Tesla_ChargeState",
+    "displayName": "Tesla ChargeState",
+    "description": "",
+    "objectSummary": {
+        "Event-Based": 0,
+        "Transaction-Based": 0,
+        "Search-Based": 1
+    },
+    "objects": [
+        {
+            "objectName": "RootObject",
+            "displayName": "Tesla_ChargeState",
+            "parentName": "BaseSearch",
+            "comment": "",
+            "fields": [],
+            "calculations": [],
+            "constraints": [],
+            "lineage": "RootObject",
+            "baseSearch": "((index=\"tesla\") (sourcetype=\"vehicle_data\")) | fields \"_time\", \"charge_state.battery_level\", \"charge_state.battery_range\", \"charge_state.charge_energy_added\", \"charge_state.charge_limit_soc\", \"charge_state.charge_miles_added_ideal\", \"charge_state.charge_miles_added_rated\", \"charge_state.charge_rate\", \"charge_state.charging_state\", \"charge_state.est_battery_range\", \"charge_state.ideal_battery_range\", \"id\", \"vehicle_id\" | rename \"charge_state.battery_level\" AS \"battery_perc\" | rename \"charge_state.battery_range\" AS \"battery_range_rated\" | rename \"charge_state.charge_energy_added\" AS \"charge_energy_added\" | rename \"charge_state.charge_limit_soc\" AS \"charge_limit_perc\" | rename \"charge_state.charge_miles_added_ideal\" AS \"charge_miles_added_ideal\" | rename \"charge_state.charge_miles_added_rated\" AS \"charge_miles_added_rated\" | rename \"charge_state.charge_rate\" AS \"charge_rate\" | rename \"charge_state.charging_state\" AS \"charging_state\" | rename \"charge_state.est_battery_range\" AS \"battery_range_est\""
+        }
+    ],
+    "objectNameList": [
+        "RootObject"
+    ]
+}
