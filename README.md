@@ -1,9 +1,11 @@
-#Introduction
+# Introduction
+
 This app collects data from the Tesla owners API. Can be configured for multiple vehicles and accounts - Perfect for visualising your usage, or fleets of cars.
 
 After installing the app, please go to the app's Configuration page and enter the API Key/Secret key which can be found at https://akrion.docs.apiary.io/#reference/authentication
 
-Note: The Car/Charging data collection require your Tesla to be awake, if vehicle is not awake the API returns a HTTP 408 with "Vehicle Unavailable". The script will not wake the vehicle, *however* if the vehicle is awake then running the script may keep it awake. This can cause "Phantom Drain" as various car computer systems remain online. If 
+Note: The Car/Charging data collection require your Tesla to be awake, if vehicle is not awake the API returns a HTTP 408 with "Vehicle Unavailable". The script will not wake the vehicle, *however* if the vehicle is awake then running the script may keep it awake. This can cause "Phantom Drain" as various car computer systems remain online. 
+
 ## Whats in the App?
 * Input - List Cars in Tesla Account
 * Input - Collect data on availability of nearest Superchargers
@@ -351,7 +353,7 @@ Click-through to see single event
 ![Single Charging Event](https://user-images.githubusercontent.com/5527349/104831039-db197600-587c-11eb-9604-a4db96e7b1f3.png)
 
 
-#ToDo
+# ToDo
 New modular input to write only metrics, this will improve performance of searches.  
 Additional Journey plotting dashboard(s) 
 Battery Health / Efficiency Dashboard  
