@@ -23,7 +23,6 @@ local.meta
 *.spl
 
 # Unknown
-build
 .build
 *.orig.pre41
 
@@ -34,6 +33,7 @@ build_scripts/*.gz
 splunk-ref-pas-code.iml
 
 out/
+output/
 
 # RVM and rbenv
 /.rvmrc
