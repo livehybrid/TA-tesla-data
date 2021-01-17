@@ -108,7 +108,6 @@ def collect_events(helper, ew):
     except:
         helper.log_warning(response.content)
         helper.log_warning("Error from API - Deleting existing token")
-        helper.log_warning(response.json()['error'])
         try:
             response_json = response.json()
             if 'error' in response_json:
@@ -116,7 +115,6 @@ def collect_events(helper, ew):
         except:
             pass
 
-        #TODO - Check if auth error (401) or other?
         splunkService = client.connect(token=helper.context_meta['session_key'])
         token_realm = helper.get_input_type()
         try:

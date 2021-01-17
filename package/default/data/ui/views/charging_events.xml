@@ -1,0 +1,65 @@
+<form>
+    <label>Charging Events</label>
+    <fieldset submitButton="false">
+        <input type="time" token="time" searchWhenChanged="true">
+            <label></label>
+            <default>
+                <earliest>-48h@h</earliest>
+                <latest>now</latest>
+            </default>
+        </input>
+    </fieldset>
+    <row>
+        <panel>
+            <table>
+                <search>
+                    <query>index=tesla sourcetype=vehicle_data
+                        | rename charge_state.charging_state as charging_state
+                        | rename charge_state.charge_port_door_open AS charge_port_door_open
+                        | streamstats current=f window=1 last(charging_state) AS prev_charging_state last(charge_port_door_open) AS prev_charge_port_latch
+                        | eval charge_state_change=IF(prev_charging_state!=charging_state,1,0)
+                        | eval pluggedin_state_change=IF(prev_charge_port_latch==charge_port_door_open,0,1)
+                        | accum pluggedin_state_change AS plugged_in_id
+                        | accum charge_state_change AS charging_id
+                        | search charging_state="Charging"
+                        | stats earliest(_time) as startTime, latest(_time) as endTime, avg(charge_state.charge_rate) AS charge_rate, max(charge_state.charge_energy_added) AS charge_energy_added, avg(charge_state.charger_power) AS avg_charge_power BY charging_id, plugged_in_id
+                        | eval charge_duration=endTime-startTime
+                        | eval estimated_charge_power=charge_duration/60/60*avg_charge_power
+                        | stats max(charge_energy_added) AS total_charge_added, sum(charge_duration) AS charge_duration, min(startTime) AS plugged_in_startTime, max(endTime) AS plugged_in_endTime dc(charging_id) as charging_events by plugged_in_id
+                        | eval charge_rate_into_car = total_charge_added/(charge_duration/60/60)
+                        | eval endTime_Friendly=strftime(plugged_in_endTime,"%T %d/%m/%Y")
+                        | eval startTime_Friendly=strftime(plugged_in_startTime,"%T %d/%m/%Y")
+                        | eval charge_duration_string = tostring(round(charge_duration), "duration")
+                        | eval charge_duration_formatted = replace(charge_duration_string,"(?:(\d+)\+)?0?(\d+):0?(\d+):0?(\d+)","\1d \2h \3m \4s")
+                        | eval charge_duration_friendly=replace(charge_duration_formatted, "^d (0h (0m )?)?","")
+                        | eval elapsed_seconds=plugged_in_endTime-plugged_in_startTime
+                        | eval elapsed_duration_string = tostring(round(elapsed_seconds), "duration")
+                        | eval elapsed_duration_formatted = replace(elapsed_duration_string,"(?:(\d+)\+)?0?(\d+):0?(\d+):0?(\d+)","\1d \2h \3m \4s")
+                        | eval elapsed_duration_friendly=replace(elapsed_duration_formatted, "^d (0h (0m )?)?","")
+                        | table plugged_in_id charging_events startTime_Friendly endTime_Friendly total_charge_added plugged_in_startTime plugged_in_endTime
+                        | sort plugged_in_id</query>
+                    <earliest>$time.earliest$</earliest>
+                    <latest>$time.latest$</latest>
+                    <sampleRatio>1</sampleRatio>
+                </search>
+                <option name="count">20</option>
+                <option name="dataOverlayMode">none</option>
+                <option name="drilldown">cell</option>
+                <option name="percentagesRow">false</option>
+                <option name="refresh.display">progressbar</option>
+                <option name="rowNumbers">false</option>
+                <option name="totalsRow">false</option>
+                <option name="wrap">true</option>
+                <format type="number" field="estimated_charge_power">
+                    <option name="unit">kw</option>
+                </format>
+                <format type="number" field="total_charge_added">
+                    <option name="unit">kw</option>
+                </format>
+                <drilldown>
+                    <link target="_blank">/app/TA-tesla-data/charging_event?earliest=$row.plugged_in_startTime$&amp;latest=$row.plugged_in_endTime$</link>
+                </drilldown>
+            </table>
+        </panel>
+    </row>
+</form>
