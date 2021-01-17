@@ -1,4 +1,4 @@
-#Introduction 
+#Introduction
 This app collects data from the Tesla owners API. Can be configured for multiple vehicles and accounts - Perfect for visualising your usage, or fleets of cars.
 
 After installing the app, please go to the app's Configuration page and enter the API Key/Secret key which can be found at https://akrion.docs.apiary.io/#reference/authentication
@@ -344,7 +344,7 @@ Some dashboards make use of the [Location Tracker App](https://splunkbase.splunk
 ![Overview](https://user-images.githubusercontent.com/5527349/104831042-eb315580-587c-11eb-840f-eff44f7524dd.png)
 
 #### Charging Events
-Click-through to see single event
+Click-through to see single event  
 ![Charging Events](https://user-images.githubusercontent.com/5527349/104831030-b7563000-587c-11eb-9212-f08aae94b17b.png)
 
 #### Single Charging Event
