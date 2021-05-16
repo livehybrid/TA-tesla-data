@@ -341,39 +341,6 @@
                 {
                     "entity": [
                         {
-                            "required": true,
-                            "defaultValue": "",
-                            "help": "Found at https://akrion.docs.apiary.io",
-                            "field": "api_clientid",
-                            "validators": [
-                                {
-                                    "maxLength": 8192,
-                                    "minLength": 0,
-                                    "errorMsg": "Max length of text input is 8192",
-                                    "type": "string"
-                                }
-                            ],
-                            "label": "API ClientID",
-                            "type": "text"
-                        },
-                        {
-                            "required": true,
-                            "defaultValue": "",
-                            "encrypted": true,
-                            "help": "Found at https://akrion.docs.apiary.io",
-                            "field": "api_client_secret",
-                            "validators": [
-                                {
-                                    "maxLength": 8192,
-                                    "minLength": 0,
-                                    "errorMsg": "Max length of password is 8192",
-                                    "type": "string"
-                                }
-                            ],
-                            "label": "API Client Secret",
-                            "type": "text"
-                        },
-                        {
                             "required": false,
                             "defaultValue": true,
                             "help": "Enforce trusted SSL certificate verification",

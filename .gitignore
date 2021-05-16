@@ -42,3 +42,5 @@ output/
 /test-reports
 src/*/local/*
 depsprivate/*
+
+package/appserver/static/js/
