@@ -93,26 +93,6 @@ model_logging = RestModel(fields_logging, name='logging')
 
 fields_additional_parameters = [
     field.RestField(
-        'api_clientid',
-        required=True,
-        encrypted=False,
-        default='81527cff06843c8634fdc09e8ac0abefb46ac849f38fe1e431c2ef2106796384',
-        validator=validator.String(
-            min_len=0, 
-            max_len=8192, 
-        )
-    ), 
-    field.RestField(
-        'api_client_secret',
-        required=True,
-        encrypted=True,
-        default='c7257eb71a564034f9419ee651c7d0e5f7aa6bfbd18bafb5c5c033b093bb2fa3',
-        validator=validator.String(
-            min_len=0, 
-            max_len=8192, 
-        )
-    ), 
-    field.RestField(
         'verify_ssl',
         required=False,
         encrypted=False,
