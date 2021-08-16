@@ -1,3 +1,5 @@
+![Splunkbase Downloads](https://img.shields.io/endpoint?url=https%3A%2F%2Fsplunkbasebadge.livehybrid.com%2Fv1%2Fdownloads%2F4660?1)  ![Splunkbase Installs](https://img.shields.io/endpoint?url=https%3A%2F%2Fsplunkbasebadge.livehybrid.com%2Fv1%2Finstalls%2F4660?1)  ![Splunkbase AppInspect](https://img.shields.io/endpoint?url=https%3A%2F%2Fsplunkbasebadge.livehybrid.com%2Fv1%2Fappinspect%2F4660?1)  ![Splunkbase Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fsplunkbasebadge.livehybrid.com%2Fv1%2Flatest_compat%2F4660)  
+[![CircleCI](https://circleci.com/gh/livehybrid/TA-tesla-data/tree/main.svg?style=svg)](https://circleci.com/gh/livehybrid/TA-tesla-data/tree/main)
 
 # Introduction
 
