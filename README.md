@@ -7,6 +7,8 @@ This app collects data from the Tesla owners API. Can be configured for multiple
 
 Note: The Car/Charging data collection require your Tesla to be awake, if vehicle is not awake the API returns a HTTP 408 with "Vehicle Unavailable". The script will not wake the vehicle, *however* if the vehicle is awake then running the script may keep it awake. This can cause "Phantom Drain" as various car computer systems remain online.
 
+*Important* - This app requires ucc-gen to build a ready-to-run app, this repo only contains the files to produce the app. Details on how to build the app yourself will be updated in the near future. Please use SplunkBase or the Releases section of this repo for the produced app.
+
 ## What's in the box?
 ### Configuration
 
