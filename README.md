@@ -58,7 +58,7 @@ Two example inputs for the UK and Europe have been configured but need updating 
 
 ## "Vehicle Data Collector"
 ## tesla:vehicle:vehicle_state
-```json
+```
 {
    account: MyTeslaAccountName
    api_version: 45
@@ -139,7 +139,7 @@ Two example inputs for the UK and Europe have been configured but need updating 
 ```
 
 ## tesla:vehicle:charge_state
-```json
+```
 {
    account: MyTeslaAccountName
    battery_heater_on: false
@@ -202,7 +202,7 @@ Two example inputs for the UK and Europe have been configured but need updating 
 ```
 
 ## tesla:vehicle:vehicle_config
-```json
+```
 {
    account: MyTeslaAccountName
    aux_park_lamps: Eu
@@ -253,7 +253,7 @@ Two example inputs for the UK and Europe have been configured but need updating 
 ```
 
 ## tesla:vehicle:climate_state
-```json
+```
 {
    account: MyTeslaAccountName
    allow_cabin_overheat_protection: true
@@ -295,7 +295,7 @@ Two example inputs for the UK and Europe have been configured but need updating 
 ```
 
 ## tesla:vehicle:gui_settings
-```json
+```
 {
    account: MyTeslaAccountName
    gui_24_hour_time: true
@@ -311,7 +311,7 @@ Two example inputs for the UK and Europe have been configured but need updating 
 ```
 
 ## tesla:vehicle:data
-```json
+```
 { 
    access_type: OWNER  
    api_version: 45  
@@ -337,7 +337,7 @@ Two example inputs for the UK and Europe have been configured but need updating 
 
 ## "GraphQL Supercharger data"
 ## tesla:suc:locations
-```json
+```
 {
    activeOutages: [
    ]
@@ -361,7 +361,7 @@ Two example inputs for the UK and Europe have been configured but need updating 
 
 ## "Nearby SuperCharger Stats"
 ## tesla:suc:locations
-```json
+```
 {
    activeOutages: [
    ]
@@ -384,7 +384,7 @@ Two example inputs for the UK and Europe have been configured but need updating 
 ```
 
 ## tesla:vehicle:destinationcharger
-```json
+```
 {
    distance_miles: 9.874345
    location: {
@@ -398,7 +398,7 @@ Two example inputs for the UK and Europe have been configured but need updating 
 
 ## "Vehicle List"
 ## tesla:vehicle:list
-```json
+```
 {
    access_type: OWNER
    api_version: 45
