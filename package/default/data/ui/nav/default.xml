@@ -1,6 +1,11 @@
-<nav search_view="search" color="#E82127">
-  <view name="tesla_fast" default="true" />
-<view name="inputs" />
-<view name="configuration"/>
-<view name="search" label="Search"/>
+<nav>
+    <view name="tesla__welcome"  default="true" />
+    <view name="inputs" />
+    <view name="configuration" />
+    <view name="search" />
+    <collection label="Dashboards" >
+        <view source="all" match="tesla" />
+        <divider />
+        <view name="dashboards" />
+    </collection>
 </nav>

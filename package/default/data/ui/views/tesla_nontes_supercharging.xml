@@ -1,0 +1,48 @@
+<dashboard version="1.1">
+    <label>Tesla - Non-Tesla Capable Superchargers</label>
+    <row>
+        <panel>
+            <table>
+                <search>
+                    <query>`tesla_index` sourcetype="tesla:suc:locations"
+                        | dedup localizedSiteName
+                        | eval outageMessage=json_extract(mvjoin(json_array_to_mv(json_extract(_raw,"activeOutages")),""),"message")
+                        | eval availPerc=(availableStalls/totalStalls)*100
+                        | table localizedSiteName availPerc availableStalls totalStalls maxPowerKw outageMessage</query>
+                    <earliest>-24h@h</earliest>
+                    <latest>now</latest>
+                    <sampleRatio>1</sampleRatio>
+                </search>
+                <option name="count">20</option>
+                <option name="dataOverlayMode">none</option>
+                <option name="drilldown">none</option>
+                <option name="percentagesRow">false</option>
+                <option name="rowNumbers">false</option>
+                <option name="totalsRow">false</option>
+                <option name="wrap">true</option>
+                <format type="number" field="availableStalls">
+                    <option name="precision">0</option>
+                </format>
+                <format type="number" field="availPerc">
+                    <option name="precision">0</option>
+                    <option name="unit">%</option>
+                </format>
+                <format type="color" field="availPerc">
+                    <colorPalette type="minMidMax" maxColor="#118832" midColor="#FFFFFF" minColor="#D41F1F"></colorPalette>
+                    <scale type="minMidMax" maxValue="100" midValue="70" minValue="0"></scale>
+                </format>
+                <format type="color" field="availableStalls">
+                    <colorPalette type="map">{"0":#D41F1F,"1":#E3723A}</colorPalette>
+                </format>
+                <format type="number" field="maxPowerKw">
+                    <option name="precision">0</option>
+                    <option name="unit">kWh</option>
+                </format>
+                <format type="color" field="maxPowerKw">
+                    <colorPalette type="list">[#D41F1F,#D94E17,#CBA700,#118832]</colorPalette>
+                    <scale type="threshold">75,130,245</scale>
+                </format>
+            </table>
+        </panel>
+    </row>
+</dashboard>
