@@ -1,53 +1,52 @@
 {
-  "schemaVersion": "1.0.0",
-  "info": {
-    "title": "Tesla data",
-    "id": {
-      "group": null,
-      "name": "TA-tesla-data",
-      "version": "1.0.0"
+    "schemaVersion": "2.0.0",
+    "info": {
+        "title": "Tesla app for Splunk",
+        "id": {
+            "group": null,
+            "name": "TA-tesla-data",
+            "version": "1.1.0"
+        },
+        "author": [
+            {
+                "name": "Will Searle",
+                "email": "will@livehybrid.com",
+                "company": "LiveHybrid Ltd"
+            }
+        ],
+        "releaseDate": null,
+        "description": "Splunk TA for Tesla Cars",
+        "classification": {
+            "intendedAudience": "IT Professionals",
+            "categories": [
+                "Security, Fraud & Compliance"
+            ],
+            "developmentStatus": "Production/Stable"
+        },
+        "commonInformationModels": null,
+        "license": {
+            "name": null,
+            "text": "LICENSES/",
+            "uri": null
+        },
+        "privacyPolicy": {
+            "name": null,
+            "text": null,
+            "uri": null
+        },
+        "releaseNotes": {
+            "name": "README",
+            "text": "README.txt",
+            "uri": "https://docs.splunk.com/Documentation/AddOns/McAfeeEPOSyslog/About"
+        }
     },
-    "author": [
-      {
-        "name": "William Searle",
-        "email": null,
-        "company": null
-      }
+    "supportedDeployments": [
+        "_standalone",
+        "_distributed",
+        "_search_head_clustering"
     ],
-    "releaseDate": null,
-    "description": "Pulls data from the Tesla owners API, with sample dashboard",
-    "classification": {
-      "intendedAudience": null,
-      "categories": [],
-      "developmentStatus": null
-    },
-    "commonInformationModels": null,
-    "license": {
-      "name": null,
-      "text": null,
-      "uri": null
-    },
-    "privacyPolicy": {
-      "name": null,
-      "text": null,
-      "uri": null
-    },
-    "releaseNotes": {
-      "name": null,
-      "text": null,
-      "uri": null
-    }
-  },
-  "dependencies": {
-  },
-  "tasks": [],
-  "inputGroups": {
-  },
-  "incompatibleApps": {
-  },
-  "platformRequirements": {
-    "splunk": {
-      "Enterprise": "*"
-    }
-  }
+    "targetWorkloads": [
+        "_search_heads",
+        "_indexers"
+    ]
 }
