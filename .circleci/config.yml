@@ -15,7 +15,7 @@ orbs:
           - run:
               name: Setup Environment
               command: |
-                echo "Nothing to do here, all done inside splunk-ci-build image"
+                pip install grip
                 rm -rf build/
           - run:
               name: Generate Documentation
