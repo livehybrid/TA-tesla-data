@@ -1,1 +1,1 @@
-splunktaucclib
+splunktaucclib==6.0.10
