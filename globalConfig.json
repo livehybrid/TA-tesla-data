@@ -1,779 +1,745 @@
 {
-    "pages": {
-        "configuration": {
-            "tabs": [
+  "pages": {
+    "configuration": {
+      "tabs": [
+        {
+          "name": "account",
+          "table": {
+            "actions": ["edit", "delete", "clone"],
+            "header": [
+              {
+                "label": "Name",
+                "field": "name"
+              }
+            ]
+          },
+          "entity": [
+            {
+              "type": "text",
+              "label": "Name",
+              "validators": [
                 {
-                    "name": "account",
-                    "table": {
-                        "actions": [
-                            "edit",
-                            "delete",
-                            "clone"
-                        ],
-                        "header": [
-                            {
-                                "label": "Name",
-                                "field": "name"
-                            }
-                        ]
-                    },
-                    "entity": [
-                        {
-                            "type": "text",
-                            "label": "Name",
-                            "validators": [
-                                {
-                                    "type": "string",
-                                    "errorMsg": "Length of ID should be between 1 and 50",
-                                    "minLength": 1,
-                                    "maxLength": 50
-                                },
-                                {
-                                    "type": "regex",
-                                    "errorMsg": "Name must begin with a letter and consist exclusively of alphanumeric characters and underscores.",
-                                    "pattern": "^[a-zA-Z]\\w*$"
-                                }
-                            ],
-                            "options": {
-                                "placeholder": "Required"
-                            },
-                            "field": "name",
-                            "help": "Enter a unique name for this account.",
-                            "required": true
-                        },
-                        {
-                            "type": "text",
-                            "field": "refresh_token",
-                            "label": "Refresh Token",
-                            "required": true,
-                            "encrypted": true,
-                            "help": "Enter your Tesla Refresh Token."
-                        },
-                        {
-                            "type": "text",
-                            "field": "access_token",
-                            "label": "Access Token",
-                            "required": false,
-                            "encrypted": true,
-                            "help": "Enter your Tesla Account Token."
-                        },
-                        {
-                            "field": "help_link",
-                            "label": "",
-                            "type": "helpLink",
-                            "options": {
-                                "text": "Configuration help",
-                                "link": "/en-US/app/TA-tesla-data/tesla__welcome"
-                            }
-                        }
-                    ],
-                    "title": "Account"
+                  "type": "string",
+                  "errorMsg": "Length of ID should be between 1 and 50",
+                  "minLength": 1,
+                  "maxLength": 50
                 },
                 {
-                    "name": "proxy",
-                    "entity": [
-                        {
-                            "type": "checkbox",
-                            "label": "Enable",
-                            "field": "proxy_enabled"
-                        },
-                        {
-                            "type": "singleSelect",
-                            "label": "Proxy Type",
-                            "options": {
-                                "disableSearch": true,
-                                "autoCompleteFields": [
-                                    {
-                                        "value": "http",
-                                        "label": "http"
-                                    },
-                                    {
-                                        "value": "socks4",
-                                        "label": "socks4"
-                                    },
-                                    {
-                                        "value": "socks5",
-                                        "label": "socks5"
-                                    }
-                                ]
-                            },
-                            "defaultValue": "http",
-                            "field": "proxy_type"
-                        },
-                        {
-                            "type": "text",
-                            "label": "Host",
-                            "validators": [
-                                {
-                                    "type": "regex",
-                                    "errorMsg": "Proxy Host should not have special characters",
-                                    "pattern": "^[a-zA-Z]\\.\\w*$"
-                                },
-                                {
-                                    "type": "string",
-                                    "errorMsg": "Max host length is 4096",
-                                    "minLength": 0,
-                                    "maxLength": 4096
-                                }
-                            ],
-                            "field": "proxy_url"
-                        },
-                        {
-                            "type": "text",
-                            "label": "Port",
-                            "validators": [
-                                {
-                                    "type": "number",
-                                    "range": [
-                                        1,
-                                        65535
-                                    ]
-                                }
-                            ],
-                            "field": "proxy_port"
-                        },
-                        {
-                            "type": "text",
-                            "label": "Username",
-                            "validators": [
-                                {
-                                    "type": "string",
-                                    "errorMsg": "Max length of username is 50",
-                                    "minLength": 0,
-                                    "maxLength": 50
-                                }
-                            ],
-                            "field": "proxy_username"
-                        },
-                        {
-                            "type": "text",
-                            "label": "Password",
-                            "validators": [
-                                {
-                                    "type": "string",
-                                    "errorMsg": "Max length of password is 8192",
-                                    "minLength": 0,
-                                    "maxLength": 8192
-                                }
-                            ],
-                            "encrypted": true,
-                            "field": "proxy_password"
-                        },
-                        {
-                            "type": "checkbox",
-                            "label": "Reverse DNS resolution",
-                            "field": "proxy_rdns"
-                        }
-                    ],
-                    "options": {
-                        "saveValidator": "function(formData) { if(!formData.proxy_enabled || formData.proxy_enabled === '0') {return true; } if(!formData.proxy_url) { return 'Proxy Host can not be empty'; } if(!formData.proxy_port) { return 'Proxy Port can not be empty'; } if(!formData.proxy_type) {return 'Proxy type can not be empty'; } return true; }"
-                    },
-                    "title": "Proxy"
-                },
-                {
-                    "name": "logging",
-                    "entity": [
-                        {
-                            "type": "singleSelect",
-                            "label": "Log level",
-                            "options": {
-                                "disableSearch": true,
-                                "autoCompleteFields": [
-                                    {
-                                        "value": "DEBUG",
-                                        "label": "DEBUG"
-                                    },
-                                    {
-                                        "value": "INFO",
-                                        "label": "INFO"
-                                    },
-                                    {
-                                        "value": "WARNING",
-                                        "label": "WARNING"
-                                    },
-                                    {
-                                        "value": "ERROR",
-                                        "label": "ERROR"
-                                    },
-                                    {
-                                        "value": "CRITICAL",
-                                        "label": "CRITICAL"
-                                    }
-                                ]
-                            },
-                            "defaultValue": "INFO",
-                            "field": "loglevel"
-                        }
-                    ],
-                    "title": "Logging"
+                  "type": "regex",
+                  "errorMsg": "Name must begin with a letter and consist exclusively of alphanumeric characters and underscores.",
+                  "pattern": "^[a-zA-Z]\\w*$"
                 }
-            ],
-            "title": "Configuration",
-            "description": "Set up your add-on"
-        },
-        "inputs": {
-            "services": [
-                {
-                    "entity": [
-                        {
-                            "required": true,
-                            "help": "Enter a unique name for the data input",
-                            "field": "name",
-                            "validators": [
-                                {
-                                    "pattern": "^[a-zA-Z]\\w*$",
-                                    "errorMsg": "Input Name must start with a letter and followed by alphabetic letters, digits or underscores.",
-                                    "type": "regex"
-                                },
-                                {
-                                    "maxLength": 100,
-                                    "minLength": 1,
-                                    "errorMsg": "Length of input name should be between 1 and 100",
-                                    "type": "string"
-                                }
-                            ],
-                            "label": "Name",
-                            "type": "text"
-                        },
-                        {
-                            "required": true,
-                            "defaultValue": "default",
-                            "field": "index",
-                            "options": {
-                                "createSearchChoice": true,
-                                "blackList": "^_.*$",
-                                "endpointUrl": "data/indexes"
-                            },
-                            "validators": [
-                                {
-                                    "maxLength": 80,
-                                    "minLength": 1,
-                                    "errorMsg": "Length of index name should be between 1 and 80.",
-                                    "type": "string"
-                                }
-                            ],
-                            "label": "Index",
-                            "type": "singleSelect"
-                        },
-                        {
-                            "field": "interval",
-                            "label": "Interval (in seconds)",
-                            "type": "text",
-                            "defaultValue": 120,
-                            "validators": [
-                                {
-                                    "type": "number",
-                                    "range": [
-                                        0,
-                                        31536000
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "type": "singleSelect",
-                            "label": "Tesla Account",
-                            "options": {
-                                "referenceName": "account"
-                            },
-                            "help": "",
-                            "field": "account",
-                            "required": true
-                        },
-                        {
-                            "type": "singleSelect",
-                            "label": "Vehicle",
-                            "required": true,
-                            "options": {
-                                "dependencies": [
-                                    "account"
-                                ],
-                                "placeholder": "Select a vehicle",
-                                "endpointUrl": "ta_tesla_data_tesla_select_vehicle",
-                                "labelField": "vehicle_name"
-                            },
-                            "field": "vehicle_id"
-                        },
-                        {
-                            "type": "multipleSelect",
-                            "label": "Data to log",
-                            "options": {
-                                "items": [
-                                    {
-                                        "label": "Vehicle State",
-                                        "value": "vehicle_state"
-                                    },
-                                    {
-                                        "label": "Vehicle Config",
-                                        "value": "vehicle_config"
-                                    },
-                                    {
-                                        "label": "GUI Settings",
-                                        "value": "gui_settings"
-                                    },
-                                    {
-                                        "label": "Drive State",
-                                        "value": "drive_state"
-                                    },
-                                    {
-                                        "label": "Climate State",
-                                        "value": "climate_state"
-                                    },
-                                    {
-                                        "label": "Charge State",
-                                        "value": "charge_state"
-                                    }
-                                ]
-                            },
-                            "help": "If none selected, all will be logged under different sourcetypes. See Help page for more info",
-                            "field": "sections"
-                        }
-                    ],
-                    "title": "Vehicle Data Collector",
-                    "name": "tesla_vehicle_data"
-                },
-                {
-                    "entity": [
-                        {
-                            "required": true,
-                            "help": "Enter a unique name for the data input",
-                            "field": "name",
-                            "validators": [
-                                {
-                                    "pattern": "^[a-zA-Z]\\w*$",
-                                    "errorMsg": "Input Name must start with a letter and followed by alphabetic letters, digits or underscores.",
-                                    "type": "regex"
-                                },
-                                {
-                                    "maxLength": 100,
-                                    "minLength": 1,
-                                    "errorMsg": "Length of input name should be between 1 and 100",
-                                    "type": "string"
-                                }
-                            ],
-                            "label": "Name",
-                            "type": "text"
-                        },
-                        {
-                            "required": true,
-                            "defaultValue": "default",
-                            "field": "index",
-                            "options": {
-                                "createSearchChoice": true,
-                                "blackList": "^_.*$",
-                                "endpointUrl": "data/indexes"
-                            },
-                            "validators": [
-                                {
-                                    "maxLength": 80,
-                                    "minLength": 1,
-                                    "errorMsg": "Length of index name should be between 1 and 80.",
-                                    "type": "string"
-                                }
-                            ],
-                            "label": "Index",
-                            "type": "singleSelect"
-                        },
-                        {
-                            "type": "singleSelect",
-                            "label": "Tesla Account",
-                            "options": {
-                                "referenceName": "account"
-                            },
-                            "help": "",
-                            "field": "account",
-                            "required": true
-                        },
-                        {
-                            "field": "interval",
-                            "label": "Interval (in seconds)",
-                            "type": "text",
-                            "defaultValue": 3600,
-                            "validators": [
-                                {
-                                    "type": "number",
-                                    "range": [
-                                        0,
-                                        31536000
-                                    ]
-                                }
-                            ]
-                        }
-                    ],
-                    "title": "Vehicle List",
-                    "name": "tesla_vehicle_list"
-                },
-                {
-                    "entity": [
-                        {
-                            "required": true,
-                            "help": "Enter a unique name for the data input",
-                            "field": "name",
-                            "validators": [
-                                {
-                                    "pattern": "^[a-zA-Z]\\w*$",
-                                    "errorMsg": "Input Name must start with a letter and followed by alphabetic letters, digits or underscores.",
-                                    "type": "regex"
-                                },
-                                {
-                                    "maxLength": 100,
-                                    "minLength": 1,
-                                    "errorMsg": "Length of input name should be between 1 and 100",
-                                    "type": "string"
-                                }
-                            ],
-                            "label": "Name",
-                            "type": "text"
-                        },
-                        {
-                            "field": "interval",
-                            "label": "Interval (in seconds)",
-                            "type": "text",
-                            "defaultValue": 900,
-                            "validators": [
-                                {
-                                    "type": "number",
-                                    "range": [
-                                        0,
-                                        31536000
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "required": true,
-                            "defaultValue": "default",
-                            "field": "index",
-                            "options": {
-                                "createSearchChoice": true,
-                                "blackList": "^_.*$",
-                                "endpointUrl": "data/indexes"
-                            },
-                            "validators": [
-                                {
-                                    "maxLength": 80,
-                                    "minLength": 1,
-                                    "errorMsg": "Length of index name should be between 1 and 80.",
-                                    "type": "string"
-                                }
-                            ],
-                            "label": "Index",
-                            "type": "singleSelect"
-                        },
-                        {
-                            "type": "singleSelect",
-                            "label": "Tesla Account",
-                            "options": {
-                                "referenceName": "account"
-                            },
-                            "help": "",
-                            "field": "account",
-                            "required": true
-                        },
-                        {
-                            "type": "singleSelect",
-                            "label": "Vehicle",
-                            "required": true,
-                            "options": {
-                                "dependencies": [
-                                    "account"
-                                ],
-                                "placeholder": "Select a vehicle",
-                                "endpointUrl": "ta_tesla_data_tesla_select_vehicle",
-                                "labelField": "vehicle_name"
-                            },
-                            "field": "vehicle_id"
-                        }
-                    ],
-                    "title": "Nearby SuperCharger Stats",
-                    "name": "tesla_nearby_suc"
-                },
-                {
-                    "hook": {
-                        "src": "Hook"
-                    },
-                    "name": "tesla_token_refresher",
-                    "entity": [
-                        {
-                            "type": "text",
-                            "label": "Name",
-                            "validators": [
-                                {
-                                    "type": "regex",
-                                    "errorMsg": "Input Name must begin with a letter and consist exclusively of alphanumeric characters and underscores.",
-                                    "pattern": "^[a-zA-Z]\\w*$"
-                                },
-                                {
-                                    "type": "string",
-                                    "errorMsg": "Length of input name should be between 1 and 100",
-                                    "minLength": 1,
-                                    "maxLength": 100
-                                }
-                            ],
-                            "field": "name",
-                            "help": "A unique name for the data input.",
-                            "required": true
-                        },
-                        {
-                            "field": "interval",
-                            "label": "Interval (in seconds)",
-                            "type": "text",
-                            "defaultValue": 3600,
-                            "validators": [
-                                {
-                                    "type": "number",
-                                    "range": [
-                                        0,
-                                        31536000
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "type": "singleSelect",
-                            "label": "Tesla Account",
-                            "options": {
-                                "referenceName": "account"
-                            },
-                            "help": "",
-                            "field": "account",
-                            "required": true
-                        },
-                        {
-                            "field": "help_link",
-                            "label": "",
-                            "type": "helpLink",
-                            "options": {
-                                "text": "Help Link",
-                                "link": "/en-US/app/TA-tesla-data/tesla__welcome"
-                            }
-                        }
-                    ],
-                    "title": "Token Refresher"
-                },
-                {
-                    "name": "tesla_collect_tp_suc_data",
-                    "entity": [
-                        {
-                            "type": "text",
-                            "label": "Name",
-                            "validators": [
-                                {
-                                    "type": "regex",
-                                    "errorMsg": "Input Name must begin with a letter and consist exclusively of alphanumeric characters and underscores.",
-                                    "pattern": "^[a-zA-Z]\\w*$"
-                                },
-                                {
-                                    "type": "string",
-                                    "errorMsg": "Length of input name should be between 1 and 100",
-                                    "minLength": 1,
-                                    "maxLength": 100
-                                }
-                            ],
-                            "field": "name",
-                            "help": "A unique name for the data input.",
-                            "required": true
-                        },
-                        {
-                            "type": "singleSelect",
-                            "label": "Index",
-                            "validators": [
-                                {
-                                    "type": "string",
-                                    "errorMsg": "Length of index name should be between 1 and 80.",
-                                    "minLength": 1,
-                                    "maxLength": 80
-                                }
-                            ],
-                            "defaultValue": "default",
-                            "options": {
-                                "endpointUrl": "data/indexes",
-                                "createSearchChoice": true,
-                                "denyList": "^_.*$"
-                            },
-                            "field": "index",
-                            "required": true
-                        },
-                        {
-                            "field": "interval",
-                            "label": "Interval (in seconds)",
-                            "type": "text",
-                            "defaultValue": 900,
-                            "validators": [
-                                {
-                                    "type": "number",
-                                    "range": [
-                                        0,
-                                        31536000
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "type": "singleSelect",
-                            "label": "Tesla Account",
-                            "options": {
-                                "referenceName": "account"
-                            },
-                            "help": "",
-                            "field": "account",
-                            "required": true
-                        },
-                        {
-                            "type": "text",
-                            "label": "Center Lat,Long",
-                            "validators": [
-                                {
-                                    "type": "regex",
-                                    "errorMsg": "Invalid date and time format",
-                                    "pattern": "^([0-9\\.]+\\,[0-9\\.\\-]+)$"
-                                }
-                            ],
-                            "field": "user_lat_long",
-                            "help": "Should be in form Lat,Long (Comma Delimited).",
-                            "tooltip": "This is the center point of the map to search.",
-                            "required": true
-                        },
-                        {
-                            "type": "text",
-                            "label": "North-West Lat,Long",
-                            "validators": [
-                                {
-                                    "type": "regex",
-                                    "errorMsg": "Invalid Lat,Long value",
-                                    "pattern": "^([0-9\\.\\-]+\\,[0-9\\.\\-]+)$"
-                                }
-                            ],
-                            "field": "northwest_lat_long",
-                            "help": "Should be in form Lat,Long (Comma Delimited).",
-                            "tooltip": "This is the top left point of the map to search.",
-                            "required": true
-                        },
-                        {
-                            "type": "text",
-                            "label": "South-East Lat,Long",
-                            "validators": [
-                                {
-                                    "type": "regex",
-                                    "errorMsg": "Invalid Lat,Long value",
-                                    "pattern": "^([0-9\\.\\-]+\\,[0-9\\.\\-]+)$"
-                                }
-                            ],
-                            "field": "southeast_lat_long",
-                            "help": "Should be in form Lat,Long (Comma Delimited).",
-                            "tooltip": "This is the bottom right point of the map to search.",
-                            "required": true
-                        },
-                        {
-                            "field": "help_link",
-                            "label": "",
-                            "type": "helpLink",
-                            "options": {
-                                "text": "Help Link",
-                                "link": "/en-US/app/TA-tesla-data/tesla__welcome"
-                            }
-                        }
-                    ],
-                    "title": "GraphQL Supercharger data collection"
-                }
-            ],
-            "title": "Inputs",
-            "description": "Manage your data inputs",
-            "table": {
-                "actions": [
-                    "edit",
-                    "enable",
-                    "delete",
-                    "clone"
-                ],
-                "header": [
-                    {
-                        "field": "input",
-                        "label": "Input Type",
-                        "customCell": {
-                            "src": "CustomInputCell",
-                            "type": "external"
-                        }
-                    },
-                    {
-                        "label": "Name",
-                        "field": "name"
-                    },
-                    {
-                        "label": "Account",
-                        "field": "account"
-                    },
-                    {
-                        "label": "Interval",
-                        "field": "interval"
-                    },
-                    {
-                        "label": "Index",
-                        "field": "index"
-                    },
-                    {
-                        "label": "Status",
-                        "field": "disabled"
-                    }
-                ],
-                "moreInfo": [
-                    {
-                        "label": "Name",
-                        "field": "name"
-                    },
-                    {
-                        "label": "Interval",
-                        "field": "interval"
-                    },
-                    {
-                        "label": "Index",
-                        "field": "index"
-                    },
-                    {
-                        "label": "Status",
-                        "field": "disabled",
-                        "mapping": {
-                            "true": "Disabled",
-                            "false": "Enabled"
-                        }
-                    },
-                    {
-                        "label": "Tesla Account",
-                        "field": "account"
-                    },
-                    {
-                        "label": "Vehicle ID",
-                        "field": "vehicle_id"
-                    },
-                    {
-                        "label": "Object",
-                        "field": "object"
-                    },
-                    {
-                        "label": "Object Fields",
-                        "field": "object_fields"
-                    },
-                    {
-                        "label": "Order By",
-                        "field": "order_by"
-                    },
-                    {
-                        "label": "Query Start Date",
-                        "field": "start_date"
-                    },
-                    {
-                        "label": "Limit",
-                        "field": "limit"
-                    }
-                ]
+              ],
+              "field": "name",
+              "help": "Enter a unique name for this account.",
+              "required": true
+            },
+            {
+              "type": "text",
+              "field": "refresh_token",
+              "label": "Refresh Token",
+              "required": true,
+              "encrypted": true,
+              "help": "Enter your Tesla Refresh Token."
+            },
+            {
+              "type": "text",
+              "field": "access_token",
+              "label": "Access Token",
+              "required": false,
+              "encrypted": true,
+              "help": "Enter your Tesla Account Token."
+            },
+            {
+              "field": "help_link",
+              "label": "",
+              "type": "helpLink",
+              "options": {
+                "text": "Configuration help",
+                "link": "/en-US/app/TA-tesla-data/tesla__welcome"
+              }
             }
+          ],
+          "title": "Account"
+        },
+        {
+          "name": "proxy",
+          "entity": [
+            {
+              "type": "checkbox",
+              "label": "Enable",
+              "field": "proxy_enabled"
+            },
+            {
+              "type": "singleSelect",
+              "label": "Proxy Type",
+              "options": {
+                "disableSearch": true,
+                "autoCompleteFields": [
+                  {
+                    "value": "http",
+                    "label": "http"
+                  },
+                  {
+                    "value": "socks4",
+                    "label": "socks4"
+                  },
+                  {
+                    "value": "socks5",
+                    "label": "socks5"
+                  }
+                ]
+              },
+              "defaultValue": "http",
+              "field": "proxy_type"
+            },
+            {
+              "type": "text",
+              "label": "Host",
+              "validators": [
+                {
+                  "type": "regex",
+                  "errorMsg": "Proxy Host should not have special characters",
+                  "pattern": "^[a-zA-Z]\\.\\w*$"
+                },
+                {
+                  "type": "string",
+                  "errorMsg": "Max host length is 4096",
+                  "minLength": 0,
+                  "maxLength": 4096
+                }
+              ],
+              "field": "proxy_url"
+            },
+            {
+              "type": "text",
+              "label": "Port",
+              "validators": [
+                {
+                  "type": "number",
+                  "range": [1, 65535]
+                }
+              ],
+              "field": "proxy_port"
+            },
+            {
+              "type": "text",
+              "label": "Username",
+              "validators": [
+                {
+                  "type": "string",
+                  "errorMsg": "Max length of username is 50",
+                  "minLength": 0,
+                  "maxLength": 50
+                }
+              ],
+              "field": "proxy_username"
+            },
+            {
+              "type": "text",
+              "label": "Password",
+              "validators": [
+                {
+                  "type": "string",
+                  "errorMsg": "Max length of password is 8192",
+                  "minLength": 0,
+                  "maxLength": 8192
+                }
+              ],
+              "encrypted": true,
+              "field": "proxy_password"
+            },
+            {
+              "type": "checkbox",
+              "label": "Reverse DNS resolution",
+              "field": "proxy_rdns"
+            }
+          ],
+          "options": {
+            "saveValidator": "function(formData) { if(!formData.proxy_enabled || formData.proxy_enabled === '0') {return true; } if(!formData.proxy_url) { return 'Proxy Host can not be empty'; } if(!formData.proxy_port) { return 'Proxy Port can not be empty'; } if(!formData.proxy_type) {return 'Proxy type can not be empty'; } return true; }"
+          },
+          "title": "Proxy"
+        },
+        {
+          "name": "logging",
+          "entity": [
+            {
+              "type": "singleSelect",
+              "label": "Log level",
+              "options": {
+                "disableSearch": true,
+                "autoCompleteFields": [
+                  {
+                    "value": "DEBUG",
+                    "label": "DEBUG"
+                  },
+                  {
+                    "value": "INFO",
+                    "label": "INFO"
+                  },
+                  {
+                    "value": "WARNING",
+                    "label": "WARNING"
+                  },
+                  {
+                    "value": "ERROR",
+                    "label": "ERROR"
+                  },
+                  {
+                    "value": "CRITICAL",
+                    "label": "CRITICAL"
+                  }
+                ]
+              },
+              "defaultValue": "INFO",
+              "field": "loglevel"
+            }
+          ],
+          "title": "Logging"
         }
+      ],
+      "title": "Configuration",
+      "description": "Set up your add-on"
     },
-    "meta": {
-        "name": "TA-tesla-data",
-        "restRoot": "ta_tesla_data",
-        "version": "1.1.0",
-        "displayName": "Tesla app for Splunk",
-        "schemaVersion": "0.0.3"
+    "inputs": {
+      "services": [
+        {
+          "entity": [
+            {
+              "required": true,
+              "help": "Enter a unique name for the data input",
+              "field": "name",
+              "validators": [
+                {
+                  "pattern": "^[a-zA-Z]\\w*$",
+                  "errorMsg": "Input Name must start with a letter and followed by alphabetic letters, digits or underscores.",
+                  "type": "regex"
+                },
+                {
+                  "maxLength": 100,
+                  "minLength": 1,
+                  "errorMsg": "Length of input name should be between 1 and 100",
+                  "type": "string"
+                }
+              ],
+              "label": "Name",
+              "type": "text"
+            },
+            {
+              "required": true,
+              "defaultValue": "default",
+              "field": "index",
+              "options": {
+                "createSearchChoice": true,
+                "denyList": "^_.*$",
+                "endpointUrl": "data/indexes"
+              },
+              "validators": [
+                {
+                  "maxLength": 80,
+                  "minLength": 1,
+                  "errorMsg": "Length of index name should be between 1 and 80.",
+                  "type": "string"
+                }
+              ],
+              "label": "Index",
+              "type": "singleSelect"
+            },
+            {
+              "field": "interval",
+              "label": "Interval (in seconds)",
+              "type": "text",
+              "defaultValue": 120,
+              "validators": [
+                {
+                  "type": "number",
+                  "range": [0, 31536000]
+                }
+              ]
+            },
+            {
+              "type": "singleSelect",
+              "label": "Tesla Account",
+              "options": {
+                "referenceName": "account"
+              },
+              "help": "",
+              "field": "account",
+              "required": true
+            },
+            {
+              "type": "singleSelect",
+              "label": "Vehicle",
+              "required": true,
+              "help": "Select a vehicle",
+              "options": {
+                "dependencies": ["account"],
+                "endpointUrl": "ta_tesla_data_tesla_select_vehicle",
+                "labelField": "vehicle_name"
+              },
+              "field": "vehicle_id"
+            },
+            {
+              "type": "multipleSelect",
+              "label": "Data to log",
+              "options": {
+                "items": [
+                  {
+                    "label": "Vehicle State",
+                    "value": "vehicle_state"
+                  },
+                  {
+                    "label": "Vehicle Config",
+                    "value": "vehicle_config"
+                  },
+                  {
+                    "label": "GUI Settings",
+                    "value": "gui_settings"
+                  },
+                  {
+                    "label": "Drive State",
+                    "value": "drive_state"
+                  },
+                  {
+                    "label": "Climate State",
+                    "value": "climate_state"
+                  },
+                  {
+                    "label": "Charge State",
+                    "value": "charge_state"
+                  }
+                ]
+              },
+              "help": "If none selected, all will be logged under different sourcetypes. See Help page for more info",
+              "field": "sections"
+            }
+          ],
+          "title": "Vehicle Data Collector",
+          "name": "tesla_vehicle_data"
+        },
+        {
+          "entity": [
+            {
+              "required": true,
+              "help": "Enter a unique name for the data input",
+              "field": "name",
+              "validators": [
+                {
+                  "pattern": "^[a-zA-Z]\\w*$",
+                  "errorMsg": "Input Name must start with a letter and followed by alphabetic letters, digits or underscores.",
+                  "type": "regex"
+                },
+                {
+                  "maxLength": 100,
+                  "minLength": 1,
+                  "errorMsg": "Length of input name should be between 1 and 100",
+                  "type": "string"
+                }
+              ],
+              "label": "Name",
+              "type": "text"
+            },
+            {
+              "required": true,
+              "defaultValue": "default",
+              "field": "index",
+              "options": {
+                "createSearchChoice": true,
+                "denyList": "^_.*$",
+                "endpointUrl": "data/indexes"
+              },
+              "validators": [
+                {
+                  "maxLength": 80,
+                  "minLength": 1,
+                  "errorMsg": "Length of index name should be between 1 and 80.",
+                  "type": "string"
+                }
+              ],
+              "label": "Index",
+              "type": "singleSelect"
+            },
+            {
+              "type": "singleSelect",
+              "label": "Tesla Account",
+              "options": {
+                "referenceName": "account"
+              },
+              "help": "",
+              "field": "account",
+              "required": true
+            },
+            {
+              "field": "interval",
+              "label": "Interval (in seconds)",
+              "type": "text",
+              "defaultValue": 3600,
+              "validators": [
+                {
+                  "type": "number",
+                  "range": [0, 31536000]
+                }
+              ]
+            }
+          ],
+          "title": "Vehicle List",
+          "name": "tesla_vehicle_list"
+        },
+        {
+          "entity": [
+            {
+              "required": true,
+              "help": "Enter a unique name for the data input",
+              "field": "name",
+              "validators": [
+                {
+                  "pattern": "^[a-zA-Z]\\w*$",
+                  "errorMsg": "Input Name must start with a letter and followed by alphabetic letters, digits or underscores.",
+                  "type": "regex"
+                },
+                {
+                  "maxLength": 100,
+                  "minLength": 1,
+                  "errorMsg": "Length of input name should be between 1 and 100",
+                  "type": "string"
+                }
+              ],
+              "label": "Name",
+              "type": "text"
+            },
+            {
+              "field": "interval",
+              "label": "Interval (in seconds)",
+              "type": "text",
+              "defaultValue": 900,
+              "validators": [
+                {
+                  "type": "number",
+                  "range": [0, 31536000]
+                }
+              ]
+            },
+            {
+              "required": true,
+              "defaultValue": "default",
+              "field": "index",
+              "options": {
+                "createSearchChoice": true,
+                "denyList": "^_.*$",
+                "endpointUrl": "data/indexes"
+              },
+              "validators": [
+                {
+                  "maxLength": 80,
+                  "minLength": 1,
+                  "errorMsg": "Length of index name should be between 1 and 80.",
+                  "type": "string"
+                }
+              ],
+              "label": "Index",
+              "type": "singleSelect"
+            },
+            {
+              "type": "singleSelect",
+              "label": "Tesla Account",
+              "options": {
+                "referenceName": "account"
+              },
+              "help": "",
+              "field": "account",
+              "required": true
+            },
+            {
+              "type": "singleSelect",
+              "label": "Vehicle",
+              "required": true,
+              "help": "Select a vehicle",
+              "options": {
+                "dependencies": ["account"],
+                "endpointUrl": "ta_tesla_data_tesla_select_vehicle",
+                "labelField": "vehicle_name"
+              },
+              "field": "vehicle_id"
+            }
+          ],
+          "title": "Nearby SuperCharger Stats",
+          "name": "tesla_nearby_suc"
+        },
+        {
+          "hook": {
+            "src": "Hook"
+          },
+          "name": "tesla_token_refresher",
+          "entity": [
+            {
+              "type": "text",
+              "label": "Name",
+              "validators": [
+                {
+                  "type": "regex",
+                  "errorMsg": "Input Name must begin with a letter and consist exclusively of alphanumeric characters and underscores.",
+                  "pattern": "^[a-zA-Z]\\w*$"
+                },
+                {
+                  "type": "string",
+                  "errorMsg": "Length of input name should be between 1 and 100",
+                  "minLength": 1,
+                  "maxLength": 100
+                }
+              ],
+              "field": "name",
+              "help": "A unique name for the data input.",
+              "required": true
+            },
+            {
+              "field": "interval",
+              "label": "Interval (in seconds)",
+              "type": "text",
+              "defaultValue": 3600,
+              "validators": [
+                {
+                  "type": "number",
+                  "range": [0, 31536000]
+                }
+              ]
+            },
+            {
+              "type": "singleSelect",
+              "label": "Tesla Account",
+              "options": {
+                "referenceName": "account"
+              },
+              "help": "",
+              "field": "account",
+              "required": true
+            },
+            {
+              "field": "help_link",
+              "label": "",
+              "type": "helpLink",
+              "options": {
+                "text": "Help Link",
+                "link": "/en-US/app/TA-tesla-data/tesla__welcome"
+              }
+            }
+          ],
+          "title": "Token Refresher"
+        },
+        {
+          "name": "tesla_collect_tp_suc_data",
+          "entity": [
+            {
+              "type": "text",
+              "label": "Name",
+              "validators": [
+                {
+                  "type": "regex",
+                  "errorMsg": "Input Name must begin with a letter and consist exclusively of alphanumeric characters and underscores.",
+                  "pattern": "^[a-zA-Z]\\w*$"
+                },
+                {
+                  "type": "string",
+                  "errorMsg": "Length of input name should be between 1 and 100",
+                  "minLength": 1,
+                  "maxLength": 100
+                }
+              ],
+              "field": "name",
+              "help": "A unique name for the data input.",
+              "required": true
+            },
+            {
+              "type": "singleSelect",
+              "label": "Index",
+              "validators": [
+                {
+                  "type": "string",
+                  "errorMsg": "Length of index name should be between 1 and 80.",
+                  "minLength": 1,
+                  "maxLength": 80
+                }
+              ],
+              "defaultValue": "default",
+              "options": {
+                "endpointUrl": "data/indexes",
+                "createSearchChoice": true,
+                "denyList": "^_.*$"
+              },
+              "field": "index",
+              "required": true
+            },
+            {
+              "field": "interval",
+              "label": "Interval (in seconds)",
+              "type": "text",
+              "defaultValue": 900,
+              "validators": [
+                {
+                  "type": "number",
+                  "range": [0, 31536000]
+                }
+              ]
+            },
+            {
+              "type": "singleSelect",
+              "label": "Tesla Account",
+              "options": {
+                "referenceName": "account"
+              },
+              "help": "",
+              "field": "account",
+              "required": true
+            },
+            {
+              "type": "text",
+              "label": "Center Lat,Long",
+              "validators": [
+                {
+                  "type": "regex",
+                  "errorMsg": "Invalid date and time format",
+                  "pattern": "^([0-9\\.]+\\,[0-9\\.\\-]+)$"
+                }
+              ],
+              "field": "user_lat_long",
+              "help": "Should be in form Lat,Long (Comma Delimited).",
+              "tooltip": "This is the center point of the map to search.",
+              "required": true
+            },
+            {
+              "type": "text",
+              "label": "North-West Lat,Long",
+              "validators": [
+                {
+                  "type": "regex",
+                  "errorMsg": "Invalid Lat,Long value",
+                  "pattern": "^([0-9\\.\\-]+\\,[0-9\\.\\-]+)$"
+                }
+              ],
+              "field": "northwest_lat_long",
+              "help": "Should be in form Lat,Long (Comma Delimited).",
+              "tooltip": "This is the top left point of the map to search.",
+              "required": true
+            },
+            {
+              "type": "text",
+              "label": "South-East Lat,Long",
+              "validators": [
+                {
+                  "type": "regex",
+                  "errorMsg": "Invalid Lat,Long value",
+                  "pattern": "^([0-9\\.\\-]+\\,[0-9\\.\\-]+)$"
+                }
+              ],
+              "field": "southeast_lat_long",
+              "help": "Should be in form Lat,Long (Comma Delimited).",
+              "tooltip": "This is the bottom right point of the map to search.",
+              "required": true
+            },
+            {
+              "field": "help_link",
+              "label": "",
+              "type": "helpLink",
+              "options": {
+                "text": "Help Link",
+                "link": "/en-US/app/TA-tesla-data/tesla__welcome"
+              }
+            }
+          ],
+          "title": "GraphQL Supercharger data collection"
+        }
+      ],
+      "title": "Inputs",
+      "description": "Manage your data inputs",
+      "table": {
+        "actions": ["edit", "enable", "delete", "clone"],
+        "header": [
+          {
+            "field": "input",
+            "label": "Input Type",
+            "customCell": {
+              "src": "CustomInputCell",
+              "type": "external"
+            }
+          },
+          {
+            "label": "Name",
+            "field": "name"
+          },
+          {
+            "label": "Account",
+            "field": "account"
+          },
+          {
+            "label": "Interval",
+            "field": "interval"
+          },
+          {
+            "label": "Index",
+            "field": "index"
+          },
+          {
+            "label": "Status",
+            "field": "disabled"
+          }
+        ],
+        "moreInfo": [
+          {
+            "label": "Name",
+            "field": "name"
+          },
+          {
+            "label": "Interval",
+            "field": "interval"
+          },
+          {
+            "label": "Index",
+            "field": "index"
+          },
+          {
+            "label": "Status",
+            "field": "disabled",
+            "mapping": {
+              "true": "Disabled",
+              "false": "Enabled"
+            }
+          },
+          {
+            "label": "Tesla Account",
+            "field": "account"
+          },
+          {
+            "label": "Vehicle ID",
+            "field": "vehicle_id"
+          },
+          {
+            "label": "Object",
+            "field": "object"
+          },
+          {
+            "label": "Object Fields",
+            "field": "object_fields"
+          },
+          {
+            "label": "Order By",
+            "field": "order_by"
+          },
+          {
+            "label": "Query Start Date",
+            "field": "start_date"
+          },
+          {
+            "label": "Limit",
+            "field": "limit"
+          }
+        ]
+      }
     }
+  },
+  "meta": {
+    "name": "TA-tesla-data",
+    "restRoot": "ta_tesla_data",
+    "version": "1.1.0",
+    "displayName": "Tesla app for Splunk",
+    "schemaVersion": "0.0.3"
+  }
 }

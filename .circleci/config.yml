@@ -15,6 +15,7 @@ orbs:
           - run:
               name: Setup Environment
               command: |
+                source ~/.venv/bin/activate
                 pip install -r requirements-dev.txt
                 rm -rf build/
           - run:
