@@ -15,7 +15,7 @@ orbs:
           - run:
               name: Setup Environment
               command: |
-                pip install grip
+                pip install -r requirements-dev.txt
                 rm -rf build/
           - run:
               name: Generate Documentation

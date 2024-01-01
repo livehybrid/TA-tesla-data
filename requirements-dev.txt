@@ -1,2 +1,3 @@
 splunk-add-on-ucc-framework==5.35.1
 splunk-appinspect==3.0.3
+grip==4.6.2
