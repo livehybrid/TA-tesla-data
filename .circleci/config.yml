@@ -52,7 +52,7 @@ orbs:
                 slim partition $PACKAGE -o build/package/deployment/ || true
                 slim validate $PACKAGE
           - persist_to_workspace:
-              root: /home/circleci/project
+              root: ./
               paths:
                 - output
                 - build
