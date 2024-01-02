@@ -37,7 +37,7 @@
         "releaseNotes": {
             "name": "README",
             "text": "README.txt",
-            "uri": "https://docs.splunk.com/Documentation/AddOns/McAfeeEPOSyslog/About"
+            "uri": "https://github.com/livehybrid/TA-tesla-data/releases"
         }
     },
     "supportedDeployments": [

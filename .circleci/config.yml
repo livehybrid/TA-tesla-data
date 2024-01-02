@@ -15,7 +15,7 @@ orbs:
           - run:
               name: Setup Environment
               command: |
-                echo "Nothing to do here, all done inside splunk-ci-build image"
+                pip install -r requirements.txt
                 rm -rf build/
           - run:
               name: Generate Documentation
@@ -26,13 +26,12 @@ orbs:
           - run:
               name: Generate Addon
               command: |
-                source ~/.venv/bin/activate
                 if [[ ! -z "${CIRCLE_TAG}" ]]
                 then
                 VERSION=${CIRCLE_TAG}
                 ucc-gen
                 else
-                VERSION="0.0.0${CIRCLE_BRANCH//\//_}"
+                VERSION="0.0.0-${CIRCLE_BRANCH//\//_}"
                 ucc-gen --ta-version=$VERSION
                 fi
                 echo "-------------------------"
@@ -43,7 +42,6 @@ orbs:
               command: |
                 PACKAGE_ID=$(ls output/)
                 BUILD_DIR=output/$PACKAGE_ID              
-                source ~/.venv/bin/activate                
                 slim generate-manifest $BUILD_DIR --update >/tmp/app.manifest   || true
                 cp  /tmp/app.manifest  $BUILD_DIR/app.manifest
                 mkdir -p build/package/splunkbase
@@ -53,11 +51,20 @@ orbs:
                 PACKAGE=$(ls build/package/splunkbase/*)
                 slim partition $PACKAGE -o build/package/deployment/ || true
                 slim validate $PACKAGE
+          - run:
+              name: Inspect package
+              command: |
+                PACKAGE_ID=$(ls output/)
+                PACKAGE=$(ls build/package/splunkbase/*)
+                mkdir -p reports
+                splunk-appinspect inspect $PACKAGE --mode=precert --included-tags=private_victoria --data-format junitxml --output-file reports/$PACKAGE_ID-appinspect-cli.xml
           - persist_to_workspace:
-              root: /home/circleci/project
+              root: ./
               paths:
                 - output
                 - build
+          - store_test_results:
+              path: reports
           - store_artifacts:
               path: build/package/splunkbase
               destination: build-package-splunkbase
@@ -67,6 +74,9 @@ orbs:
           - store_artifacts:
               path: build/VERSION
               destination: build-version
+          - store_artifacts:
+              path: reports
+              destination: reports
       publish-gh:
         docker:
           - image: cimg/go:1.13

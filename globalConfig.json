@@ -34,9 +34,6 @@
                                     "pattern": "^[a-zA-Z]\\w*$"
                                 }
                             ],
-                            "options": {
-                                "placeholder": "Required"
-                            },
                             "field": "name",
                             "help": "Enter a unique name for this account.",
                             "required": true
@@ -241,7 +238,7 @@
                             "field": "index",
                             "options": {
                                 "createSearchChoice": true,
-                                "blackList": "^_.*$",
+                                "denyList": "^_.*$",
                                 "endpointUrl": "data/indexes"
                             },
                             "validators": [
@@ -284,11 +281,11 @@
                             "type": "singleSelect",
                             "label": "Vehicle",
                             "required": true,
+                            "help": "Select a vehicle",
                             "options": {
                                 "dependencies": [
                                     "account"
                                 ],
-                                "placeholder": "Select a vehicle",
                                 "endpointUrl": "ta_tesla_data_tesla_select_vehicle",
                                 "labelField": "vehicle_name"
                             },
@@ -360,7 +357,7 @@
                             "field": "index",
                             "options": {
                                 "createSearchChoice": true,
-                                "blackList": "^_.*$",
+                                "denyList": "^_.*$",
                                 "endpointUrl": "data/indexes"
                             },
                             "validators": [
@@ -446,7 +443,7 @@
                             "field": "index",
                             "options": {
                                 "createSearchChoice": true,
-                                "blackList": "^_.*$",
+                                "denyList": "^_.*$",
                                 "endpointUrl": "data/indexes"
                             },
                             "validators": [
@@ -474,11 +471,11 @@
                             "type": "singleSelect",
                             "label": "Vehicle",
                             "required": true,
+                            "help": "Select a vehicle",
                             "options": {
                                 "dependencies": [
                                     "account"
                                 ],
-                                "placeholder": "Select a vehicle",
                                 "endpointUrl": "ta_tesla_data_tesla_select_vehicle",
                                 "labelField": "vehicle_name"
                             },
@@ -772,7 +769,7 @@
     "meta": {
         "name": "TA-tesla-data",
         "restRoot": "ta_tesla_data",
-        "version": "1.1.0",
+        "version": "1.1.0R2a4df12",
         "displayName": "Tesla app for Splunk",
         "schemaVersion": "0.0.3"
     }
