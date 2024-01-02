@@ -1,1 +1,4 @@
-splunktaucclib==6.0.10
+splunk-add-on-ucc-framework==5.35.1
+splunk-appinspect==3.0.3
+splunk-packaging-toolkit==1.0.1
+grip==4.6.2

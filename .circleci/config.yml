@@ -15,7 +15,7 @@ orbs:
           - run:
               name: Setup Environment
               command: |
-                pip install -r requirements-dev.txt
+                pip install -r requirements.txt
                 rm -rf build/
           - run:
               name: Generate Documentation
@@ -51,11 +51,20 @@ orbs:
                 PACKAGE=$(ls build/package/splunkbase/*)
                 slim partition $PACKAGE -o build/package/deployment/ || true
                 slim validate $PACKAGE
+          - run:
+              name: Inspect package
+              command: |
+                PACKAGE_ID=$(ls output/)
+                PACKAGE=$(ls build/package/splunkbase/*)
+                mkdir -p reports
+                splunk-appinspect inspect build/package/splunkbase/$PACKAGE --mode=precert --included-tags=private_victoria --data-format junitxml --output-file reports/$PACKAGE_ID-appinspect-cli.xml
           - persist_to_workspace:
               root: ./
               paths:
                 - output
                 - build
+          - store_test_results:
+              path: reports
           - store_artifacts:
               path: build/package/splunkbase
               destination: build-package-splunkbase
@@ -65,6 +74,9 @@ orbs:
           - store_artifacts:
               path: build/VERSION
               destination: build-version
+          - store_artifacts:
+              path: reports
+              destination: reports
       publish-gh:
         docker:
           - image: cimg/go:1.13
