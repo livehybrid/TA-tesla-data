@@ -57,7 +57,7 @@ orbs:
                 PACKAGE_ID=$(ls output/)
                 PACKAGE=$(ls build/package/splunkbase/*)
                 mkdir -p reports
-                splunk-appinspect inspect build/package/splunkbase/$PACKAGE --mode=precert --included-tags=private_victoria --data-format junitxml --output-file reports/$PACKAGE_ID-appinspect-cli.xml
+                splunk-appinspect inspect $PACKAGE --mode=precert --included-tags=private_victoria --data-format junitxml --output-file reports/$PACKAGE_ID-appinspect-cli.xml
           - persist_to_workspace:
               root: ./
               paths:
