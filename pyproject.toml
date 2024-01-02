@@ -6,7 +6,7 @@ authors = ["Will Searle <will@livehybrid.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-splunk-add-on-ucc-framework = "^5.14.1"
+splunk-add-on-ucc-framework = "^5.26.0"
 requests = "^2.28.1"
 htmldom = "^2.0"
 
