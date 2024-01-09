@@ -33,20 +33,20 @@ orbs:
               command: |
                 PACKAGE_ID=$(ls output/)
                 BUILD_DIR=output/$PACKAGE_ID              
-                mkdir -p build/package/splunkbase
-                mkdir -p build/package/deployment
-                slim package -o build/package/splunkbase $BUILD_DIR 
-                mkdir -p build/package/deployment
-                PACKAGE=$(ls build/package/splunkbase/*)
-                slim partition $PACKAGE -o build/package/deployment/ || true
-                slim validate $PACKAGE
+                mkdir -p dist
+                rm -rf $BUILD_DIR/lib/**/*.pyc
+                rm -rf $BUILD_DIR/lib/**/*.so
+                ucc-gen package -o dist/ --path $BUILD_DIR
           - run:
               name: Inspect package
               command: |
                 PACKAGE_ID=$(ls output/)
-                PACKAGE=$(ls build/package/splunkbase/*)
+                PACKAGE=$(ls dist/*)
                 mkdir -p reports
-                splunk-appinspect inspect $PACKAGE --mode=precert --included-tags=private_victoria --data-format junitxml --output-file reports/$PACKAGE_ID-appinspect-cli.xml
+                splunk-appinspect inspect $PACKAGE --mode=precert --included-tags=private_victoria --data-format junitxml --output-file reports/$PACKAGE_ID-victoria-cli.xml
+                splunk-appinspect inspect $PACKAGE --mode=precert --included-tags=splunk_appinspect --data-format junitxml --output-file reports/$PACKAGE_ID-splunkbase-cli.xml --html_report_out=reports/PACKAGE_ID.html
+                splunk-appinspect inspect $PACKAGE --mode=precert --included-tags=cloud --data-format junitxml --output-file reports/$PACKAGE_ID-cloud-cli.xml
+                splunk-appinspect inspect $PACKAGE --mode=precert --included-tags=future --data-format junitxml --output-file reports/$PACKAGE_ID-future-cli.xml
           - persist_to_workspace:
               root: ./
               paths:
@@ -55,7 +55,7 @@ orbs:
           - store_test_results:
               path: reports
           - store_artifacts:
-              path: build/package/splunkbase
+              path: dist
               destination: build-package-splunkbase
           - store_artifacts:
               path: build/package/deployment
@@ -79,7 +79,7 @@ orbs:
                 PATH=$PATH:/usr/local/go/bin
                 go install github.com/tcnksm/ghr@latest
                 [[ "${CIRCLE_TAG}" =~ ^v[0-9]*.[0-9]*.[0-9]*$ ]] || export ISPRE=-prerelease
-                $HOME/go/bin/ghr -t ${GH_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} ${ISPRE} -delete "${CIRCLE_TAG}" /tmp/workspace/build/package/splunkbase
+                $HOME/go/bin/ghr -t ${GH_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} ${ISPRE} -delete "${CIRCLE_TAG}" /tmp/workspace/dist
                 $HOME/go/bin/ghr -t ${GH_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} ${ISPRE} "${CIRCLE_TAG}" /tmp/workspace/build/package/deployment
 
 workflows:
