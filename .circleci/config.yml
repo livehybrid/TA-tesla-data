@@ -44,7 +44,7 @@ orbs:
                 PACKAGE=$(ls dist/*)
                 mkdir -p reports
                 splunk-appinspect inspect $PACKAGE --mode=precert --included-tags=private_victoria --data-format junitxml --output-file reports/$PACKAGE_ID-victoria-cli.xml
-                splunk-appinspect inspect $PACKAGE --mode=precert --included-tags=splunk_appinspect --data-format junitxml --output-file reports/$PACKAGE_ID-splunkbase-cli.xml --html_report_out=reports/PACKAGE_ID.html
+                splunk-appinspect inspect $PACKAGE --mode=precert --included-tags=splunk_appinspect --data-format junitxml --output-file reports/$PACKAGE_ID-splunkbase-cli.xml
                 splunk-appinspect inspect $PACKAGE --mode=precert --included-tags=cloud --data-format junitxml --output-file reports/$PACKAGE_ID-cloud-cli.xml
                 splunk-appinspect inspect $PACKAGE --mode=precert --included-tags=future --data-format junitxml --output-file reports/$PACKAGE_ID-future-cli.xml
           - persist_to_workspace:
