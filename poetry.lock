@@ -343,17 +343,17 @@ use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "splunk-add-on-ucc-framework"
-version = "5.35.1"
+version = "5.36.0"
 description = "Splunk Add-on SDK formerly UCC is a build and code generation framework"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "splunk_add_on_ucc_framework-5.35.1-py3-none-any.whl", hash = "sha256:bb625a95ab1451201aeb3592b36e17ecb2c22bc871f6ae92d2940120e8eb9c98"},
-    {file = "splunk_add_on_ucc_framework-5.35.1.tar.gz", hash = "sha256:a7590312296b514484ec53a443dc9779a7ce931a52a4d2f37250345a364e677c"},
+    {file = "splunk_add_on_ucc_framework-5.36.0-py3-none-any.whl", hash = "sha256:208ff72acd5921e7a0ba941b86699275eacba706125fdbc6ad923de40634b01e"},
+    {file = "splunk_add_on_ucc_framework-5.36.0.tar.gz", hash = "sha256:e93db246cffbb106cf818cb9060847cab543b6ed9a7937592939f5cdee4ed4b7"},
 ]
 
 [package.dependencies]
-addonfactory-splunk-conf-parser-lib = ">=0.3.3,<0.4.0"
+addonfactory-splunk-conf-parser-lib = "*"
 colorama = ">=0.4.6,<0.5.0"
 defusedxml = ">=0.7.1,<0.8.0"
 dunamai = ">=1.9.0,<2.0.0"
@@ -383,4 +383,4 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "c83c4262fe87da131eeb380edb724c7f20d7257d48a20aa2bcb682c2420d804a"
+content-hash = "31af4663ce13ab6d5f5448e8bcac3242c50e6aef3b67d7ab334ff1c6d3df7bc8"
