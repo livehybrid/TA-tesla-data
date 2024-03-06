@@ -343,13 +343,13 @@ use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "splunk-add-on-ucc-framework"
-version = "5.36.0"
+version = "5.39.1"
 description = "Splunk Add-on SDK formerly UCC is a build and code generation framework"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "splunk_add_on_ucc_framework-5.36.0-py3-none-any.whl", hash = "sha256:208ff72acd5921e7a0ba941b86699275eacba706125fdbc6ad923de40634b01e"},
-    {file = "splunk_add_on_ucc_framework-5.36.0.tar.gz", hash = "sha256:e93db246cffbb106cf818cb9060847cab543b6ed9a7937592939f5cdee4ed4b7"},
+    {file = "splunk_add_on_ucc_framework-5.39.1-py3-none-any.whl", hash = "sha256:5109df16a7b834e43494f31037e508b33a16df8451d6d988793ad4fbfdcadc02"},
+    {file = "splunk_add_on_ucc_framework-5.39.1.tar.gz", hash = "sha256:e9d0d1996d921332c6c057cd7c86538a496b7f1cfc447fc3efea13559e51d77c"},
 ]
 
 [package.dependencies]
@@ -383,4 +383,4 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "31af4663ce13ab6d5f5448e8bcac3242c50e6aef3b67d7ab334ff1c6d3df7bc8"
+content-hash = "8911404a21ad2dbe2378bf8812cdae24767d65e6f130294b33e6a58848ec1314"
