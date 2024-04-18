@@ -100,7 +100,7 @@ class TeslaModInput(BaseModInput):
     def get_owner_api(self, accountName, url):
         access_token = self.get_access_token(accountName)
         request = {
-            'verify' : False,
+            'verify' : True,
             "headers" : {
                 'Authorization': 'Bearer ' + access_token,
                 'Content-Type':  'application/json'
@@ -117,7 +117,7 @@ class TeslaModInput(BaseModInput):
             message_req = {
                 "headers":headers,
                 "payload":data,
-                "verify":False
+                "verify":True
             }
             r = self.send_http_request(uri,"POST", headers=headers, payload=data, verify=False)
             if r.status_code<300:
