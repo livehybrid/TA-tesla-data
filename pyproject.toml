@@ -10,6 +10,7 @@ splunk-add-on-ucc-framework = "^5.41.0"
 requests = "^2.31.0"
 htmldom = "^2.0"
 grip = "^4.6.2"
+splunk-appinspect = "^3.6.0"
 
 [tool.poetry.dev-dependencies]
 
