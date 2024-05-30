@@ -1,4 +1,4 @@
-splunk-add-on-ucc-framework==5.41.0
-splunk-appinspect==3.6.0
+splunk-add-on-ucc-framework==5.45.0
+splunk-appinspect==3.7.0
 splunk-packaging-toolkit==1.0.1
 grip==4.6.2
