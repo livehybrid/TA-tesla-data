@@ -707,24 +707,6 @@ files = [
 ]
 
 [[package]]
-name = "openapi3"
-version = "1.8.2"
-description = "Client and Validator of OpenAPI 3 Specifications"
-optional = false
-python-versions = "*"
-files = [
-    {file = "openapi3-1.8.2-py2.py3-none-any.whl", hash = "sha256:0d8fd34f304b61bc64b1f48ed6c6dbcc03ca04a29bcfa84e40ec5d87648e4399"},
-    {file = "openapi3-1.8.2.tar.gz", hash = "sha256:a21a490573d89ca69ada7cbe585adb2fca4964257f6f3a1df531f12815455d2c"},
-]
-
-[package.dependencies]
-PyYaml = "*"
-requests = "*"
-
-[package.extras]
-test = ["fastapi (==0.76.0)", "hypercorn (==0.14.3)", "pydantic (==1.10.2)", "pytest", "pytest-asyncio (==0.16)", "uvloop (==0.17.0)"]
-
-[[package]]
 name = "packaging"
 version = "23.0"
 description = "Core utilities for Python packages"
@@ -1134,13 +1116,13 @@ files = [
 
 [[package]]
 name = "splunk-add-on-ucc-framework"
-version = "5.41.0"
+version = "5.48.1"
 description = "Splunk Add-on SDK formerly UCC is a build and code generation framework"
 optional = false
 python-versions = "<4.0,>=3.7"
 files = [
-    {file = "splunk_add_on_ucc_framework-5.41.0-py3-none-any.whl", hash = "sha256:4ede1e5513f5abfc9f592ea9a1140b2b78c5b48e257d1dd0d577c8c28f69e1bd"},
-    {file = "splunk_add_on_ucc_framework-5.41.0.tar.gz", hash = "sha256:45309fde6c6a942c4697346abcd059ddf2c1016540133e1627650e0c8215e896"},
+    {file = "splunk_add_on_ucc_framework-5.48.1-py3-none-any.whl", hash = "sha256:6424108bcc30b81a02342b14cd12fc83dee424ba951be148ddce346dffd3f404"},
+    {file = "splunk_add_on_ucc_framework-5.48.1.tar.gz", hash = "sha256:fc92e930c7910a47ae33089882937b86324ce63763d727c7bfe5d4e368397d87"},
 ]
 
 [package.dependencies]
@@ -1150,10 +1132,7 @@ defusedxml = ">=0.7.1,<0.8.0"
 dunamai = ">=1.9.0,<2.0.0"
 jinja2 = ">=2,<4"
 jsonschema = ">=4.4.0,<5.0.0"
-openapi3 = ">=1.7.0,<2.0.0"
 PyYAML = ">=6.0,<7.0"
-requests = ">=2.31.0,<3.0.0"
-urllib3 = "<2"
 
 [[package]]
 name = "splunk-appinspect"
@@ -1253,4 +1232,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.7,<3.8"
-content-hash = "53403e780d7a9127c93f2636b23b2409e11c4965051840e64cb566043bc56290"
+content-hash = "4aeac6410b8e62553c778407f77ec032deb109832337f276d30afb461d55a363"
