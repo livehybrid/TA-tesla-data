@@ -238,13 +238,13 @@ files = [
 
 [[package]]
 name = "dunamai"
-version = "1.20.0"
+version = "1.22.0"
 description = "Dynamic version generation"
 optional = false
 python-versions = ">=3.5"
 files = [
-    {file = "dunamai-1.20.0-py3-none-any.whl", hash = "sha256:a2185c227351a52a013c7d7a695d3f3cb6625c3eed14a5295adbbcc7e2f7f8d4"},
-    {file = "dunamai-1.20.0.tar.gz", hash = "sha256:c3f1ee64a1e6cc9ebc98adafa944efaccd0db32482d2177e59c1ff6bdf23cd70"},
+    {file = "dunamai-1.22.0-py3-none-any.whl", hash = "sha256:eab3894b31e145bd028a74b13491c57db01986a7510482c9b5fff3b4e53d77b7"},
+    {file = "dunamai-1.22.0.tar.gz", hash = "sha256:375a0b21309336f0d8b6bbaea3e038c36f462318c68795166e31f9873fdad676"},
 ]
 
 [package.dependencies]
@@ -1116,20 +1116,20 @@ files = [
 
 [[package]]
 name = "splunk-add-on-ucc-framework"
-version = "5.49.0"
+version = "5.51.0"
 description = "Splunk Add-on SDK formerly UCC is a build and code generation framework"
 optional = false
 python-versions = "<4.0,>=3.7"
 files = [
-    {file = "splunk_add_on_ucc_framework-5.49.0-py3-none-any.whl", hash = "sha256:5ec83bd680847cd02abaa7fd402b634603263987ec32684a324d5a8983018a15"},
-    {file = "splunk_add_on_ucc_framework-5.49.0.tar.gz", hash = "sha256:8c0e4c4ea8bfe26944c29358ebf14b310d583f27dd2b39b2d52253e58825c138"},
+    {file = "splunk_add_on_ucc_framework-5.51.0-py3-none-any.whl", hash = "sha256:b56f618c2ec981d98b2b6b4aabbcc0a141f83af67e0d150c9fc0a552851d0621"},
+    {file = "splunk_add_on_ucc_framework-5.51.0.tar.gz", hash = "sha256:a84cd086c969ab38703dde4ba8e2a1a8d91420702180da58d9dac1a1baf683b7"},
 ]
 
 [package.dependencies]
 addonfactory-splunk-conf-parser-lib = ">=0.4.3,<0.5.0"
 colorama = ">=0.4.6,<0.5.0"
 defusedxml = ">=0.7.1,<0.8.0"
-dunamai = ">=1.9.0,<2.0.0"
+dunamai = ">=1.22.0,<2.0.0"
 jinja2 = ">=2,<4"
 jsonschema = ">=4.4.0,<5.0.0"
 PyYAML = ">=6.0,<7.0"
@@ -1232,4 +1232,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.7,<3.8"
-content-hash = "527349e2ee3af46d10907f523efd4ed8f690c53d6f9073494875496a0901b19d"
+content-hash = "77a6737cbe9ded91f8e16a9e44a474fb6967aecadcfba7ca08bac218e0d65a09"
