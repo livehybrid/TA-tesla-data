@@ -1,8 +1,14 @@
 version: 2
 updates:
   - package-ecosystem: "pip"
+    target-branch: "develop"
     directories: 
       - "/"
       - "/package/lib/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "github-actions"
+    target-branch: "develop"
+    directory: "/"
     schedule:
       interval: "daily"
