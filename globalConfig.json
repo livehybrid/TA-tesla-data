@@ -278,17 +278,10 @@
                             "required": true
                         },
                         {
-                            "type": "singleSelect",
-                            "label": "Vehicle",
+                            "type": "text",
+                            "label": "Vehicle ID",
                             "required": true,
-                            "help": "Select a vehicle",
-                            "options": {
-                                "dependencies": [
-                                    "account"
-                                ],
-                                "endpointUrl": "ta_tesla_data_tesla_select_vehicle",
-                                "labelField": "vehicle_name"
-                            },
+                            "help": "It is not longer possible to poll this without the Fleet API",
                             "field": "vehicle_id"
                         },
                         {
@@ -328,77 +321,6 @@
                     ],
                     "title": "Vehicle Data Collector",
                     "name": "tesla_vehicle_data"
-                },
-                {
-                    "entity": [
-                        {
-                            "required": true,
-                            "help": "Enter a unique name for the data input",
-                            "field": "name",
-                            "validators": [
-                                {
-                                    "pattern": "^[a-zA-Z]\\w*$",
-                                    "errorMsg": "Input Name must start with a letter and followed by alphabetic letters, digits or underscores.",
-                                    "type": "regex"
-                                },
-                                {
-                                    "maxLength": 100,
-                                    "minLength": 1,
-                                    "errorMsg": "Length of input name should be between 1 and 100",
-                                    "type": "string"
-                                }
-                            ],
-                            "label": "Name",
-                            "type": "text"
-                        },
-                        {
-                            "required": true,
-                            "defaultValue": "default",
-                            "field": "index",
-                            "options": {
-                                "createSearchChoice": true,
-                                "denyList": "^_.*$",
-                                "endpointUrl": "data/indexes"
-                            },
-                            "validators": [
-                                {
-                                    "maxLength": 80,
-                                    "minLength": 1,
-                                    "errorMsg": "Length of index name should be between 1 and 80.",
-                                    "type": "string"
-                                }
-                            ],
-                            "label": "Index",
-                            "type": "singleSelect"
-                        },
-                        {
-                            "type": "singleSelect",
-                            "label": "Tesla Account",
-                            "options": {
-                                "referenceName": "account"
-                            },
-                            "help": "",
-                            "field": "account",
-                            "required": true
-                        },
-                        {
-                            "field": "interval",
-                            "label": "Interval (in seconds)",
-                            "type": "text",
-                            "defaultValue": 3600,
-                            "validators": [
-                                {
-                                    "type": "number",
-                                    "range": [
-                                        0,
-                                        31536000
-                                    ]
-                                }
-                            ]
-                        }
-                    ],
-                    "title": "Vehicle List",
-                    "name": "tesla_vehicle_list"
                 },
                 {
                     "entity": [
@@ -468,17 +390,10 @@
                             "required": true
                         },
                         {
-                            "type": "singleSelect",
-                            "label": "Vehicle",
+                            "type": "text",
+                            "label": "Vehicle ID",
                             "required": true,
-                            "help": "Select a vehicle",
-                            "options": {
-                                "dependencies": [
-                                    "account"
-                                ],
-                                "endpointUrl": "ta_tesla_data_tesla_select_vehicle",
-                                "labelField": "vehicle_name"
-                            },
+                            "help": "It is not longer possible to poll this without the Fleet API",
                             "field": "vehicle_id"
                         }
                     ],
@@ -685,12 +600,8 @@
                 ],
                 "header": [
                     {
-                        "field": "input",
                         "label": "Input Type",
-                        "customCell": {
-                            "src": "CustomInputCell",
-                            "type": "external"
-                        }
+                        "field": "serviceTitle"
                     },
                     {
                         "label": "Name",
